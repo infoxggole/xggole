@@ -9,7 +9,7 @@ export default function Hero({ onContactClick }: HeroProps) {
   return (
     <section className="relative h-screen w-full overflow-hidden bg-zinc-950">
       
-      {/* --- CSS Animations (Consolidated) --- */}
+      {/* --- CSS Animations (Updated) --- */}
       <style>
         {`
           @keyframes blob {
@@ -20,45 +20,37 @@ export default function Hero({ onContactClick }: HeroProps) {
           }
           .animate-blob { animation: blob 15s infinite ease-in-out; }
 
-          /* Typing Animation */
+          /* Typing Animation (No Blinking Cursor) */
           @keyframes typing {
             from { width: 0 }
             to { width: 100% }
-          }
-          @keyframes blink-caret {
-            from, to { border-color: transparent }
-            50% { border-color: cyan; }
           }
           .typing-text {
             display: inline-block;
             overflow: hidden;
             white-space: nowrap;
-            border-right: .15em solid cyan;
-            animation: typing 3.5s steps(40, end), blink-caret .75s step-end infinite;
+            animation: typing 3.5s steps(40, end) forwards;
           }
         `}
       </style>
 
-      {/* --- Premium Animated Background (Liquid Aurora Style) --- */}
+      {/* --- Premium Animated Background --- */}
       <div className="absolute inset-0 w-full h-full z-0 flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff0a_1px,transparent_1px),linear-gradient(to_bottom,#ffffff0a_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_0%,#000_70%,transparent_100%)]"></div>
 
-        {/* Liquid Aurora Blobs */}
         <div className="absolute top-1/4 left-1/4 w-[400px] h-[400px] bg-cyan-500/20 rounded-full mix-blend-screen blur-[120px] animate-blob"></div>
         <div className="absolute top-1/3 right-1/4 w-[450px] h-[450px] bg-purple-600/20 rounded-full mix-blend-screen blur-[120px] animate-blob" style={{ animationDelay: '4s' }}></div>
       </div>
 
-      {/* --- Main Content Container --- */}
+      {/* --- Main Content --- */}
       <div className="relative z-20 h-full flex flex-col items-center justify-center px-4">
-        
-        {/* Step 4: Improved Value Proposition Text */}
         <div className="text-center max-w-4xl">
           <h1 className="text-4xl md:text-7xl font-bold text-white mb-8">
             <span className="inline-block px-6 py-2 border-2 border-slate-300 rounded-full bg-gradient-to-r from-slate-100 to-slate-400 text-black mb-4 shadow-[0_0_15px_rgba(255,255,255,0.2)]">
               Transform
             </span>
             <br />
-            {/* Step 1: Typing Effect */}
+            {/* Typing Effect without blinking caret */}
             <span className="typing-text bg-gradient-to-r from-cyan-400 via-white to-blue-400 bg-clip-text text-transparent">
               Your Vision Into Reality
             </span>
@@ -68,7 +60,7 @@ export default function Hero({ onContactClick }: HeroProps) {
             High-performance digital solutions tailored to your brand, delivered with precision and innovation.
           </p>
 
-          {/* Step 2: Magnetic Buttons */}
+          {/* Magnetic Buttons */}
           <div className="flex gap-6 justify-center">
             <Link 
               to="/work" 
@@ -85,7 +77,7 @@ export default function Hero({ onContactClick }: HeroProps) {
           </div>
         </div>
 
-        {/* Step 3: Social Proof Bar */}
+        {/* Social Proof Bar */}
         <div className="absolute bottom-12 w-full flex justify-center items-center gap-6 md:gap-12 text-gray-400 text-sm md:text-base opacity-70">
           <span className="flex items-center gap-2">
             <span className="text-cyan-400 font-bold">50+</span> Projects Done
@@ -101,7 +93,6 @@ export default function Hero({ onContactClick }: HeroProps) {
         </div>
       </div>
       
-      {/* Scroll Indicator */}
       <button
         onClick={() => document.querySelector('#services')?.scrollIntoView({ behavior: 'smooth' })}
         className="absolute bottom-4 left-1/2 -translate-x-1/2 text-white/50 hover:text-cyan-400 transition-colors animate-bounce z-30"
