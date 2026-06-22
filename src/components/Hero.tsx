@@ -9,100 +9,79 @@ export default function Hero({ onContactClick }: HeroProps) {
   return (
     <section className="relative h-screen w-full overflow-hidden bg-zinc-950">
       
-      {/* --- CSS Animations for Premium Butterfly Wing Flap --- */}
+      {/* --- CSS Animations for Hovering Bird --- */}
       <style>
         {`
-          @keyframes float-up-down {
+          /* Background Blob Animation */
+          @keyframes blob {
+            0% { transform: translate(0px, 0px) scale(1); }
+            33% { transform: translate(50px, -50px) scale(1.1); }
+            66% { transform: translate(-40px, 20px) scale(0.9); }
+            100% { transform: translate(0px, 0px) scale(1); }
+          }
+          .animate-blob { animation: blob 15s infinite ease-in-out; }
+
+          /* Bird Hover Animation */
+          @keyframes bird-hover {
             0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-50px); }
+            50% { transform: translateY(-20px); }
           }
-          @keyframes flap-left-wing {
-            0%, 100% { transform: perspective(1000px) rotateY(10deg) rotate(-15deg); opacity: 0.6; }
-            50% { transform: perspective(1000px) rotateY(75deg) rotate(-15deg); opacity: 0.2; }
+          /* Rapid Wing Flap */
+          @keyframes bird-flap {
+            0%, 100% { transform: scaleX(1); opacity: 0.9; }
+            50% { transform: scaleX(0.2); opacity: 0.5; }
           }
-          @keyframes flap-right-wing {
-            0%, 100% { transform: perspective(1000px) rotateY(-10deg) rotate(15deg); opacity: 0.6; }
-            50% { transform: perspective(1000px) rotateY(-75deg) rotate(15deg); opacity: 0.2; }
-          }
+          .animate-hover { animation: bird-hover 3s ease-in-out infinite; }
+          .animate-flap { animation: bird-flap 0.2s linear infinite; }
         `}
       </style>
 
-      {/* --- Animated Background Start --- */}
+      {/* --- Animated Background --- */}
       <div className="absolute inset-0 w-full h-full z-0 flex items-center justify-center overflow-hidden">
         
         {/* Subtle Cyber Grid */}
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff0a_1px,transparent_1px),linear-gradient(to_bottom,#ffffff0a_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_0%,#000_70%,transparent_100%)]"></div>
 
-        {/* Butterfly-Style Wing Wrapper */}
-        <div 
-          className="relative w-full max-w-5xl h-screen flex items-center justify-center"
-          style={{ animation: 'float-up-down 6s ease-in-out infinite' }}
-        >
-          {/* Left Wing (Premium Abstract) */}
-          <div 
-            className="absolute right-1/2 w-[300px] md:w-[450px] h-[400px] md:h-[600px] bg-gradient-to-tr from-blue-700 via-cyan-500 to-white/20 rounded-[100%] blur-[80px] mix-blend-screen origin-right"
-            style={{ animation: 'flap-left-wing 3s ease-in-out infinite' }}
-          ></div>
-          
-          {/* Right Wing (Premium Abstract) */}
-          <div 
-            className="absolute left-1/2 w-[300px] md:w-[450px] h-[400px] md:h-[600px] bg-gradient-to-tl from-blue-700 via-cyan-500 to-white/20 rounded-[100%] blur-[80px] mix-blend-screen origin-left"
-            style={{ animation: 'flap-right-wing 3s ease-in-out infinite' }}
-          ></div>
+        {/* Aurora Blur Effects */}
+        <div className="absolute top-1/4 left-1/4 w-[400px] h-[400px] bg-cyan-500/20 rounded-full mix-blend-screen blur-[120px] animate-blob"></div>
+        <div className="absolute top-1/3 right-1/4 w-[450px] h-[450px] bg-purple-600/20 rounded-full mix-blend-screen blur-[120px] animate-blob" style={{ animationDelay: '4s' }}></div>
+
+        {/* Kingfisher Silhouette (Hovering) */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 animate-hover">
+          <svg width="200" height="100" viewBox="0 0 200 100" fill="none" xmlns="http://www.w3.org/2000/svg" className="drop-shadow-[0_0_15px_rgba(255,255,255,0.5)]">
+            {/* Body */}
+            <path d="M70 50 C70 40 130 40 130 50 C130 65 70 65 70 50Z" fill="white" fillOpacity="0.8"/>
+            {/* Beak */}
+            <path d="M130 48 L160 52 L130 54 Z" fill="white" fillOpacity="0.8"/>
+            {/* Wings */}
+            <g className="animate-flap" style={{ transformOrigin: '100px 50px' }}>
+              <path d="M100 50 L60 20 L100 50 L60 80 Z" fill="white" fillOpacity="0.6"/>
+              <path d="M100 50 L140 20 L100 50 L140 80 Z" fill="white" fillOpacity="0.6"/>
+            </g>
+          </svg>
         </div>
       </div>
-      {/* --- Premium Animated Background End --- */}
 
-      {/* Gradient Overlay for content visibility */}
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-zinc-950/50 to-zinc-950 z-10" />
+      {/* Gradient Overlay */}
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-zinc-950/60 to-zinc-950 z-20" />
 
       {/* Main Content */}
-      <div className="relative z-20 h-full flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8">
-        <div className="text-center max-w-4xl mx-auto">
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-8 animate-fade-in text-white">
-            <span className="inline-block px-6 py-2 border-2 border-slate-300 rounded-full bg-gradient-to-r from-slate-100 to-slate-400 text-black shadow-[0_0_15px_rgba(255,255,255,0.2)] mb-4">
-              Transform
-            </span>
-            <br />
-            <span className="bg-gradient-to-r from-blue-400 via-white to-slate-400 bg-clip-text text-transparent">
-              Your Vision Into Reality
+      <div className="relative z-30 h-full flex flex-col items-center justify-center px-4">
+        <div className="text-center max-w-4xl">
+          <h1 className="text-5xl md:text-7xl font-bold text-white mb-6">
+            <span className="bg-gradient-to-r from-cyan-400 to-white bg-clip-text text-transparent">
+              Transform Your Vision
             </span>
           </h1>
-          <p className="text-lg sm:text-xl text-gray-300 max-w-2xl mx-auto mb-12 animate-slide-up">
-            We craft stunning digital experiences that captivate audiences and elevate brands to new heights.
+          <p className="text-gray-300 text-lg mb-12">
+            We craft stunning digital experiences that captivate audiences.
           </p>
-
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 animate-slide-up-delay">
-            <Link
-              to="/work"
-              className="group relative px-8 py-4 bg-white text-black font-semibold rounded-full overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-blue-500/20"
-            >
-              <span className="relative z-10">View My Work</span>
-              <div className="absolute inset-0 bg-gradient-to-r from-blue-400 to-cyan-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              <span className="absolute inset-0 z-20 flex items-center justify-center text-white font-semibold opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                View My Work
-              </span>
+          <div className="flex gap-4 justify-center">
+            <Link to="/work" className="px-8 py-4 bg-white text-black font-semibold rounded-full hover:scale-105 transition-transform">
+              View My Work
             </Link>
-
-            <button
-              onClick={onContactClick}
-              className="px-8 py-4 border-2 border-white/20 text-white font-semibold rounded-full backdrop-blur-sm hover:bg-white/10 hover:border-white/40 transition-all duration-300 hover:scale-105"
-            >
-              Get in Touch
-            </button>
           </div>
         </div>
-
-        {/* Scroll Indicator */}
-        <button
-          onClick={() => {
-            const services = document.querySelector('#services');
-            services?.scrollIntoView({ behavior: 'smooth' });
-          }}
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 text-white/50 hover:text-white transition-colors animate-bounce"
-        >
-          <ChevronDown size={32} />
-        </button>
       </div>
     </section>
   );
