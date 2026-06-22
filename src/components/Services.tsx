@@ -1,0 +1,88 @@
+import { Code, Smartphone, Globe, Video, Palette, Layers, Sparkles, Briefcase } from 'lucide-react';
+
+const developmentServices = [
+  { icon: Globe, title: 'Website Development', description: 'Responsive and fast websites with a premium digital presence.' },
+  { icon: Code, title: 'Web App Development', description: 'Scalable web applications built with modern, robust technology.' },
+  { icon: Smartphone, title: 'Mobile App Development', description: 'Intuitive mobile interfaces that engage and retain users.' },
+];
+
+const creativeServices = [
+  { icon: Video, title: 'Cinematic Brand Story', description: 'Compelling visual narratives that capture your brand essence.' },
+  { icon: Palette, title: 'Corporate Identity Suite', description: 'Complete brand systems that communicate your unique value.' },
+  { icon: Layers, title: 'Product Launch Video', description: 'High-impact visuals to showcase your products effectively.' },
+  { icon: Sparkles, title: 'Abstract Art Collection', description: 'Curated digital artworks exploring technology and emotion.' },
+];
+
+export default function Services() {
+  return (
+    <section id="services" className="py-24 bg-zinc-950">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        {/* Main Header */}
+        <div className="text-center mb-16">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4">
+            Our <span className="bg-gradient-to-r from-blue-400 via-white to-blue-200 bg-clip-text text-transparent">Services</span>
+          </h2>
+          <p className="text-gray-400 max-w-2xl mx-auto">
+            We provide a comprehensive suite of creative and technical services designed to elevate your brand.
+          </p>
+        </div>
+
+        {/* Digital Development Category */}
+        <ServiceCategory 
+          title="Digital Development"
+          description="We build robust, scalable, and intuitive digital solutions. From responsive websites to complex web and mobile applications, we turn code into high-performing experiences."
+          bgImage="https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=2000&auto=format&fit=crop"
+          services={developmentServices}
+        />
+
+        {/* Creative & Branding Category */}
+        <ServiceCategory 
+          title="Creative & Branding"
+          description="We craft compelling brand stories and visual identities. Our creative team combines artistry with strategy to build systems that capture attention and communicate your value."
+          bgImage="https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=2000&auto=format&fit=crop"
+          services={creativeServices}
+        />
+      </div>
+    </section>
+  );
+}
+
+// Category Container Component
+function ServiceCategory({ title, description, bgImage, services }: { title: string, description: string, bgImage: string, services: any[] }) {
+  return (
+    <div className="relative mb-20 rounded-3xl overflow-hidden border border-zinc-800">
+      {/* Background Image with Overlay */}
+      <div 
+        className="absolute inset-0 bg-cover bg-center"
+        style={{ backgroundImage: `url(${bgImage})` }}
+      />
+      <div className="absolute inset-0 bg-black/85 backdrop-blur-sm" />
+
+      {/* Content */}
+      <div className="relative p-8 md:p-12">
+        <h3 className="text-2xl md:text-3xl font-bold text-white mb-4 border-l-4 border-blue-500 pl-4">{title}</h3>
+        <p className="text-gray-300 max-w-3xl mb-10 leading-relaxed">{description}</p>
+        
+        <div className={`grid grid-cols-1 ${services.length > 3 ? 'md:grid-cols-2 lg:grid-cols-4' : 'md:grid-cols-3'} gap-6`}>
+          {services.map((service) => (
+            <ServiceCard key={service.title} service={service} />
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// Reusable Service Card Component
+function ServiceCard({ service }: { service: any }) {
+  return (
+    <div className="group p-6 rounded-2xl bg-zinc-900/40 border border-zinc-700/50 hover:border-blue-500/50 transition-all duration-300 hover:transform hover:-translate-y-2">
+      <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-600 to-blue-400 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300 shadow-lg shadow-blue-500/20">
+        <service.icon className="w-6 h-6 text-white" />
+      </div>
+      <h3 className="text-lg font-semibold text-white mb-2">{service.title}</h3>
+      <p className="text-sm text-gray-400 leading-relaxed">{service.description}</p>
+    </div>
+  );
+}
