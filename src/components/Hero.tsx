@@ -82,6 +82,20 @@ export default function Hero({ onContactClick }: HeroProps) {
               Get in Touch
             </button>
           </div>
+          {/* --- সোশ্যাল প্রুফ বার --- */}
+          <div className="absolute bottom-12 left-0 w-full flex justify-center items-center gap-6 md:gap-12 text-gray-400 text-sm md:text-base opacity-70 animate-fade-in-up">
+            <span className="flex items-center gap-2">
+              <span className="text-cyan-400 font-bold">50+</span> Projects Done
+            </span>
+            <div className="w-[1px] h-4 bg-gray-600"></div>
+            <span className="flex items-center gap-2">
+              <span className="text-cyan-400 font-bold">4.9/5</span> Client Rating
+            </span>
+            <div className="w-[1px] h-4 bg-gray-600"></div>
+            <span className="flex items-center gap-2">
+              Global Clients
+            </span>
+          </div>
         </div>
       </div>
     </section>
