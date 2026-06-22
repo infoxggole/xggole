@@ -1,4 +1,4 @@
-ximport { Mail, Phone, MapPin } from 'lucide-react';
+import { Mail, Phone, MapPin } from 'lucide-react';
 
 export default function Footer() {
   return (
@@ -48,7 +48,7 @@ export default function Footer() {
 
       {/* Copyright */}
       <div className="text-center mt-12 pt-8 border-t border-zinc-900 text-gray-600 text-xs">
-        © {new Date().getFullYear()} Fggole. All rights reserved.
+        © {new Date().getFullYear()} xggole. All rights reserved.
       </div>
     </footer>
   );
