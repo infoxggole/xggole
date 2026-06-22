@@ -7,7 +7,7 @@ export default function Footer() {
         
         {/* Brand Column */}
         <div className="space-y-4">
-          <h3 className="text-2xl font-bold text-white">fggole</h3>
+          <h3 className="text-2xl font-bold text-white">xggole</h3>
           <p className="text-gray-400 text-sm leading-relaxed max-w-xs mx-auto md:mx-0">
             Next-gen agency specializing in Cinematic Brand Stories, AI-driven video production, and premium Web/App development.
           </p>
