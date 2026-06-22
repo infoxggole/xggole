@@ -9,9 +9,10 @@ export default function Hero({ onContactClick }: HeroProps) {
   return (
     <section className="relative h-screen w-full overflow-hidden bg-zinc-950">
       
-      {/* --- CSS Animations (Updated) --- */}
+      {/* --- CSS Animations --- */}
       <style>
         {`
+          /* Aurora Blobs */
           @keyframes blob {
             0% { transform: translate(0px, 0px) scale(1); }
             33% { transform: translate(50px, -50px) scale(1.1); }
@@ -20,7 +21,15 @@ export default function Hero({ onContactClick }: HeroProps) {
           }
           .animate-blob { animation: blob 15s infinite ease-in-out; }
 
-          /* Typing Animation (No Blinking Cursor) */
+          /* Jellyfish Float */
+          @keyframes floatUp {
+            0% { transform: translateY(110vh) translateX(-20px); opacity: 0; }
+            50% { opacity: 0.4; }
+            100% { transform: translateY(-20vh) translateX(30px); opacity: 0; }
+          }
+          .animate-jelly { animation: floatUp 20s linear infinite; }
+
+          /* Typing Animation */
           @keyframes typing {
             from { width: 0 }
             to { width: 100% }
@@ -34,12 +43,18 @@ export default function Hero({ onContactClick }: HeroProps) {
         `}
       </style>
 
-      {/* --- Premium Animated Background --- */}
-      <div className="absolute inset-0 w-full h-full z-0 flex items-center justify-center overflow-hidden">
+      {/* --- Animated Background --- */}
+      <div className="absolute inset-0 w-full h-full z-0 overflow-hidden">
+        {/* Grid */}
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff0a_1px,transparent_1px),linear-gradient(to_bottom,#ffffff0a_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_0%,#000_70%,transparent_100%)]"></div>
 
+        {/* Aurora Blobs */}
         <div className="absolute top-1/4 left-1/4 w-[400px] h-[400px] bg-cyan-500/20 rounded-full mix-blend-screen blur-[120px] animate-blob"></div>
         <div className="absolute top-1/3 right-1/4 w-[450px] h-[450px] bg-purple-600/20 rounded-full mix-blend-screen blur-[120px] animate-blob" style={{ animationDelay: '4s' }}></div>
+
+        {/* Jellyfish Lights */}
+        <div className="absolute left-[10%] w-[150px] h-[200px] bg-cyan-400/10 rounded-[50%] blur-[40px] animate-jelly"></div>
+        <div className="absolute right-[20%] w-[100px] h-[150px] bg-blue-500/10 rounded-[50%] blur-[40px] animate-jelly" style={{ animationDelay: '7s' }}></div>
       </div>
 
       {/* --- Main Content --- */}
@@ -50,7 +65,6 @@ export default function Hero({ onContactClick }: HeroProps) {
               Transform
             </span>
             <br />
-            {/* Typing Effect without blinking caret */}
             <span className="typing-text bg-gradient-to-r from-cyan-400 via-white to-blue-400 bg-clip-text text-transparent">
               Your Vision Into Reality
             </span>
