@@ -46,9 +46,9 @@ export default function Navbar({ onContactClick }: NavbarProps) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           
-          {/* লোগোর ডিজাইনটি এখানে পরিবর্তন করা হয়েছে */}
+          {/* লোগোর সাইজ বড় করা হয়েছে এবং কাছাকাছি আনা হয়েছে */}
           <Link to="/" className="flex-shrink-0 flex items-center">
-            <span className="text-4xl font-bold text-white tracking-wider inline-block animate-bounce">
+            <span className="text-6xl font-bold text-white inline-block animate-bounce -mr-2">
               x
             </span>
             <span className="text-2xl font-bold text-white tracking-wider">
