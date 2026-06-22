@@ -9,54 +9,43 @@ export default function Hero({ onContactClick }: HeroProps) {
   return (
     <section className="relative h-screen w-full overflow-hidden bg-zinc-950">
       
-      {/* --- Custom Animation Styles for Realistic Jellyfish Movement --- */}
+      {/* --- Custom Animation Styles for Blue Whale & Bubbles --- */}
       <style>
         {`
-          /* প্রথম জেলিফিশের জন্য এঁকেবেঁকে চলার পথ */
-          @keyframes floatDrift1 {
-            0% { transform: translateY(110vh) translateX(0px) rotate(-5deg); }
-            25% { transform: translateY(65vh) translateX(-60px) rotate(8deg); }
-            50% { transform: translateY(20vh) translateX(40px) rotate(-6deg); }
-            75% { transform: translateY(-25vh) translateX(-40px) rotate(5deg); }
-            100% { transform: translateY(-70vh) translateX(20px) rotate(-2deg); }
+          /* তিমির ধীর গতিতে সাঁতার কাটার অ্যানিমেশন */
+          @keyframes whalePan {
+            0% { transform: translateX(-40vw) translateY(5vh) rotate(3deg); }
+            50% { transform: translateX(40vw) translateY(-5vh) rotate(-1deg); }
+            100% { transform: translateX(120vw) translateY(10vh) rotate(2deg); }
+          }
+          
+          /* পানির বুদবুদ ওপরে ওঠার অ্যানিমেশন */
+          @keyframes floatBubble {
+            0% { transform: translateY(110vh) scale(0.5); opacity: 0; }
+            20% { opacity: 0.6; }
+            80% { opacity: 0.6; }
+            100% { transform: translateY(-20vh) scale(1.2); opacity: 0; }
           }
 
-          /* দ্বিতীয় জেলিফিশের জন্য ভিন্ন এঁকেবেঁকে চলার পথ */
-          @keyframes floatDrift2 {
-            0% { transform: translateY(110vh) translateX(0px) rotate(5deg); }
-            25% { transform: translateY(75vh) translateX(70px) rotate(-8deg); }
-            50% { transform: translateY(35vh) translateX(-50px) rotate(7deg); }
-            75% { transform: translateY(-5vh) translateX(60px) rotate(-5deg); }
-            100% { transform: translateY(-55vh) translateX(-30px) rotate(3deg); }
-          }
-
-          /* শ্বাস নেওয়া বা সাঁতার কাটার অরিজিনাল মুভমেন্ট */
-          @keyframes jellyfishPulse {
-            0%, 100% { transform: scale(1, 1); }
-            50% { transform: scale(1.08, 0.92); } 
-          }
-
-          .jelly-float-1 {
+          .whale-wrapper {
             position: absolute;
-            left: 20%;
-            width: 220px;
-            animation: floatDrift1 24s linear infinite;
+            top: 25%;
+            left: -30%;
+            width: 1200px;
+            animation: whalePan 45s linear infinite;
             z-index: 0;
+            pointer-events: none;
           }
 
-          .jelly-float-2 {
+          .bubble {
             position: absolute;
-            right: 20%;
-            width: 150px;
-            animation: floatDrift2 28s linear infinite 4s;
+            bottom: -10%;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, rgba(56, 189, 248, 0.4), rgba(56, 189, 248, 0.05));
+            box-shadow: inset 0 0 10px rgba(56, 189, 248, 0.2);
+            animation: floatBubble linear infinite;
             z-index: 0;
-          }
-
-          .jelly-pulse {
-            width: 100%;
-            height: 100%;
-            animation: jellyfishPulse 3.5s ease-in-out infinite;
-            transform-origin: top center;
+            pointer-events: none;
           }
         `}
       </style>
@@ -67,35 +56,25 @@ export default function Hero({ onContactClick }: HeroProps) {
         {/* Subtle Cyber Grid */}
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff0a_1px,transparent_1px),linear-gradient(to_bottom,#ffffff0a_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_0%,#000_70%,transparent_100%)]"></div>
 
-        {/* First Glowing Jellyfish (Main) */}
-        <div className="jelly-float-1">
-          <div className="jelly-pulse opacity-40">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 300" className="w-full h-full text-cyan-400 drop-shadow-[0_0_15px_rgba(34,211,238,0.6)]">
-              {/* Jellyfish Body */}
-              <path fill="currentColor" d="M100 20 C40 20 20 80 20 120 C20 140 35 140 45 130 C55 120 65 140 75 130 C85 120 95 140 105 130 C115 120 125 140 135 130 C145 120 155 140 165 130 C175 120 180 140 180 120 C180 80 160 20 100 20 Z" />
-              {/* Tentacles */}
-              <path fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" d="M45 130 Q30 200 50 280" />
-              <path fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" d="M75 130 Q60 210 80 290" />
-              <path fill="none" stroke="currentColor" strokeWidth="5" strokeLinecap="round" d="M105 130 Q120 220 100 285" />
-              <path fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" d="M135 130 Q150 210 130 290" />
-              <path fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" d="M165 130 Q180 200 160 280" />
-            </svg>
-          </div>
+        {/* Deep Ocean Ambient Light */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-blue-900/10 rounded-full blur-[120px] pointer-events-none"></div>
+
+        {/* The Majestic Blue Whale */}
+        <div className="whale-wrapper opacity-30">
+          <svg viewBox="0 0 1000 400" xmlns="http://www.w3.org/2000/svg" className="w-full h-full text-blue-500 drop-shadow-[0_0_25px_rgba(59,130,246,0.5)]">
+            {/* Whale Body */}
+            <path d="M 950 180 C 800 120 600 80 350 150 C 200 190 100 180 40 140 C 30 120 20 90 10 70 C 20 110 40 140 60 170 C 40 190 15 210 0 230 C 40 220 80 200 120 185 C 200 230 400 280 700 220 C 850 190 950 185 980 185 C 990 185 1000 185 1000 185 C 980 185 960 183 950 180 Z" fill="currentColor"/>
+            {/* Pectoral Fin */}
+            <path d="M 550 225 C 500 300 400 380 320 380 C 380 340 450 280 490 230 Z" fill="currentColor"/>
+          </svg>
         </div>
 
-        {/* Second Glowing Jellyfish (Smaller) */}
-        <div className="jelly-float-2">
-          <div className="jelly-pulse opacity-30">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 300" className="w-full h-full text-indigo-400 drop-shadow-[0_0_15px_rgba(129,140,248,0.5)]">
-              <path fill="currentColor" d="M100 20 C40 20 20 80 20 120 C20 140 35 140 45 130 C55 120 65 140 75 130 C85 120 95 140 105 130 C115 120 125 140 135 130 C145 120 155 140 165 130 C175 120 180 140 180 120 C180 80 160 20 100 20 Z" />
-              <path fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" d="M45 130 Q30 200 50 280" />
-              <path fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" d="M75 130 Q60 210 80 290" />
-              <path fill="none" stroke="currentColor" strokeWidth="5" strokeLinecap="round" d="M105 130 Q120 220 100 285" />
-              <path fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" d="M135 130 Q150 210 130 290" />
-              <path fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" d="M165 130 Q180 200 160 280" />
-            </svg>
-          </div>
-        </div>
+        {/* Underwater Bubbles */}
+        <div className="bubble w-6 h-6 left-[15%]" style={{ animationDuration: '12s', animationDelay: '0s' }}></div>
+        <div className="bubble w-10 h-10 left-[35%]" style={{ animationDuration: '18s', animationDelay: '3s' }}></div>
+        <div className="bubble w-4 h-4 left-[60%]" style={{ animationDuration: '10s', animationDelay: '7s' }}></div>
+        <div className="bubble w-8 h-8 left-[80%]" style={{ animationDuration: '15s', animationDelay: '1s' }}></div>
+        <div className="bubble w-5 h-5 left-[50%]" style={{ animationDuration: '14s', animationDelay: '5s' }}></div>
 
       </div>
       {/* --- Premium Animated Background End --- */}
@@ -122,10 +101,10 @@ export default function Hero({ onContactClick }: HeroProps) {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 animate-slide-up-delay">
             <Link
               to="/work"
-              className="group relative px-8 py-4 bg-white text-black font-semibold rounded-full overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-cyan-500/20"
+              className="group relative px-8 py-4 bg-white text-black font-semibold rounded-full overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-blue-500/20"
             >
               <span className="relative z-10">View My Work</span>
-              <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 to-blue-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 to-blue-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               <span className="absolute inset-0 z-20 flex items-center justify-center text-white font-semibold opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                 View My Work
               </span>
@@ -133,7 +112,7 @@ export default function Hero({ onContactClick }: HeroProps) {
 
             <button
               onClick={onContactClick}
-              className="px-8 py-4 border-2 border-white/20 text-white font-semibold rounded-full backdrop-blur-sm hover:bg-cyan-500/10 hover:border-cyan-400/40 transition-all duration-300 hover:scale-105"
+              className="px-8 py-4 border-2 border-white/20 text-white font-semibold rounded-full backdrop-blur-sm hover:bg-blue-500/10 hover:border-blue-400/40 transition-all duration-300 hover:scale-105"
             >
               Get in Touch
             </button>
