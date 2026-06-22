@@ -1,4 +1,4 @@
-import { Mail, Phone, MapPin } from 'lucide-react';
+ximport { Mail, Phone, MapPin } from 'lucide-react';
 
 export default function Footer() {
   return (
