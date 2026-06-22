@@ -9,37 +9,37 @@ export default function Hero({ onContactClick }: HeroProps) {
   return (
     <section className="relative h-screen w-full overflow-hidden bg-zinc-950">
       
-      {/* --- Custom Animation Styles for Birds --- */}
+      {/* --- Custom Animation Styles for Jellyfish --- */}
       <style>
         {`
-          @keyframes glide {
-            0%, 100% { transform: translateY(0px) rotate(-5deg); }
-            50% { transform: translateY(-30px) rotate(5deg); }
+          @keyframes floatUp {
+            0% { transform: translateY(110vh) translateX(-20px) rotate(-5deg); }
+            50% { transform: translateY(40vh) translateX(30px) rotate(5deg); }
+            100% { transform: translateY(-50vh) translateX(-10px) rotate(-2deg); }
           }
-          @keyframes panAcross {
-            from { transform: translateX(-30%); }
-            to { transform: translateX(120%); }
+          @keyframes jellyfishPulse {
+            0%, 100% { transform: scale(1, 1); }
+            50% { transform: scale(1.06, 0.94); } /* জেলিফিশের শরীর সংকুচিত-প্রসারিত হওয়া */
           }
-          .bird-glide {
-            animation: glide 8s ease-in-out infinite;
-          }
-          .bird-pan-1 {
+          .jelly-float-1 {
             position: absolute;
-            top: 20%;
-            left: -20%;
-            width: 100%;
-            height: 100%;
-            animation: panAcross 45s linear infinite;
+            left: 15%;
+            width: 250px;
+            animation: floatUp 20s ease-in-out infinite;
             z-index: 0;
           }
-          .bird-pan-2 {
+          .jelly-float-2 {
             position: absolute;
-            top: 10%;
-            left: -30%;
+            right: 15%;
+            width: 150px;
+            animation: floatUp 28s ease-in-out infinite 8s;
+            z-index: 0;
+          }
+          .jelly-pulse {
             width: 100%;
             height: 100%;
-            animation: panAcross 60s linear infinite 15s;
-            z-index: 0;
+            animation: jellyfishPulse 3s ease-in-out infinite;
+            transform-origin: top center;
           }
         `}
       </style>
@@ -50,24 +50,33 @@ export default function Hero({ onContactClick }: HeroProps) {
         {/* Subtle Cyber Grid */}
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff0a_1px,transparent_1px),linear-gradient(to_bottom,#ffffff0a_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_0%,#000_70%,transparent_100%)]"></div>
 
-        {/* Soft Glowing Accent in Center */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-slate-500/5 rounded-full blur-[100px] pointer-events-none"></div>
-
-        {/* First Flying Bird (Main) */}
-        <div className="bird-pan-1">
-          <div className="bird-glide w-full max-w-4xl opacity-[0.06] text-white">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="currentColor">
-              {/* Elegant Bird Silhouette Path */}
-              <path d="M50,45 C45,55 30,65 10,60 C25,50 40,40 45,35 C45,35 48,30 50,30 C52,30 55,35 55,35 C60,40 75,50 90,60 C70,65 55,55 50,45 Z" />
+        {/* First Glowing Jellyfish (Main) */}
+        <div className="jelly-float-1">
+          <div className="jelly-pulse opacity-40">
+            {/* স্পষ্ট জেলিফিশের SVG - সায়ান রঙের গ্লো সহ */}
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 300" className="w-full h-full text-cyan-400 drop-shadow-[0_0_15px_rgba(34,211,238,0.6)]">
+              {/* Jellyfish Body */}
+              <path fill="currentColor" d="M100 20 C40 20 20 80 20 120 C20 140 35 140 45 130 C55 120 65 140 75 130 C85 120 95 140 105 130 C115 120 125 140 135 130 C145 120 155 140 165 130 C175 120 180 140 180 120 C180 80 160 20 100 20 Z" />
+              {/* Tentacles */}
+              <path fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" d="M45 130 Q30 200 50 280" />
+              <path fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" d="M75 130 Q60 210 80 290" />
+              <path fill="none" stroke="currentColor" strokeWidth="5" strokeLinecap="round" d="M105 130 Q120 220 100 285" />
+              <path fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" d="M135 130 Q150 210 130 290" />
+              <path fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" d="M165 130 Q180 200 160 280" />
             </svg>
           </div>
         </div>
 
-        {/* Second Flying Bird (Smaller, further away to create depth) */}
-        <div className="bird-pan-2">
-          <div className="bird-glide w-full max-w-xl opacity-[0.03] text-slate-300" style={{ animationDelay: '3s' }}>
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="currentColor">
-              <path d="M50,45 C45,55 30,65 10,60 C25,50 40,40 45,35 C45,35 48,30 50,30 C52,30 55,35 55,35 C60,40 75,50 90,60 C70,65 55,55 50,45 Z" />
+        {/* Second Glowing Jellyfish (Smaller, delayed) */}
+        <div className="jelly-float-2">
+          <div className="jelly-pulse opacity-30">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 300" className="w-full h-full text-indigo-400 drop-shadow-[0_0_15px_rgba(129,140,248,0.5)]">
+              <path fill="currentColor" d="M100 20 C40 20 20 80 20 120 C20 140 35 140 45 130 C55 120 65 140 75 130 C85 120 95 140 105 130 C115 120 125 140 135 130 C145 120 155 140 165 130 C175 120 180 140 180 120 C180 80 160 20 100 20 Z" />
+              <path fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" d="M45 130 Q30 200 50 280" />
+              <path fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" d="M75 130 Q60 210 80 290" />
+              <path fill="none" stroke="currentColor" strokeWidth="5" strokeLinecap="round" d="M105 130 Q120 220 100 285" />
+              <path fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" d="M135 130 Q150 210 130 290" />
+              <path fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" d="M165 130 Q180 200 160 280" />
             </svg>
           </div>
         </div>
@@ -76,7 +85,7 @@ export default function Hero({ onContactClick }: HeroProps) {
       {/* --- Premium Animated Background End --- */}
 
       {/* Gradient Overlay for text readability (z-10) */}
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-zinc-950/50 to-zinc-950 z-10" />
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-zinc-950/40 to-zinc-950 z-10 pointer-events-none" />
 
       {/* Content */}
       <div className="relative z-20 h-full flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8">
@@ -90,7 +99,7 @@ export default function Hero({ onContactClick }: HeroProps) {
             <br />
 
             {/* Your Vision Into Reality - Single Line Gradient */}
-            <span className="bg-gradient-to-r from-blue-400 via-white to-slate-400 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-cyan-400 via-white to-blue-500 bg-clip-text text-transparent drop-shadow-sm">
               Your Vision Into Reality
             </span>
           </h1>
@@ -101,10 +110,10 @@ export default function Hero({ onContactClick }: HeroProps) {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 animate-slide-up-delay">
             <Link
               to="/work"
-              className="group relative px-8 py-4 bg-white text-black font-semibold rounded-full overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-amber-500/20"
+              className="group relative px-8 py-4 bg-white text-black font-semibold rounded-full overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-cyan-500/20"
             >
               <span className="relative z-10">View My Work</span>
-              <div className="absolute inset-0 bg-gradient-to-r from-amber-400 to-orange-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 to-blue-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               <span className="absolute inset-0 z-20 flex items-center justify-center text-white font-semibold opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                 View My Work
               </span>
@@ -112,7 +121,7 @@ export default function Hero({ onContactClick }: HeroProps) {
 
             <button
               onClick={onContactClick}
-              className="px-8 py-4 border-2 border-white/20 text-white font-semibold rounded-full backdrop-blur-sm hover:bg-white/10 hover:border-white/40 transition-all duration-300 hover:scale-105"
+              className="px-8 py-4 border-2 border-white/20 text-white font-semibold rounded-full backdrop-blur-sm hover:bg-cyan-500/10 hover:border-cyan-400/40 transition-all duration-300 hover:scale-105"
             >
               Get in Touch
             </button>
@@ -125,7 +134,7 @@ export default function Hero({ onContactClick }: HeroProps) {
             const services = document.querySelector('#services');
             services?.scrollIntoView({ behavior: 'smooth' });
           }}
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 text-white/50 hover:text-white transition-colors animate-bounce"
+          className="absolute bottom-8 left-1/2 -translate-x-1/2 text-white/50 hover:text-cyan-400 transition-colors animate-bounce"
         >
           <ChevronDown size={32} />
         </button>
