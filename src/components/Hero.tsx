@@ -9,10 +9,10 @@ export default function Hero({ onContactClick }: HeroProps) {
   return (
     <section className="relative h-screen w-full overflow-hidden bg-zinc-950">
       
-      {/* --- Custom CSS for Aura Blur & Kingfisher Rapid Flap --- */}
+      {/* --- Custom CSS for Premium Liquid Aurora Blur & Majestic Bird --- */}
       <style>
         {`
-          /* --- Existing Aurora Blobs Animation (Do Not Change) --- */
+          /* --- Floating Aurora Lights --- */
           @keyframes blob {
             0% { transform: translate(0px, 0px) scale(1); }
             33% { transform: translate(50px, -50px) scale(1.1); }
@@ -23,51 +23,62 @@ export default function Hero({ onContactClick }: HeroProps) {
             animation: blob 15s infinite ease-in-out;
           }
 
-          /* --- Kingfisher Bird - Rapid Flap Animation (দুটো পাখা একসাথ করার অ্যানিমেশন) --- */
-          @keyframes rapidBirdFlap {
-            0%, 100% { transform: scaleY(1) translateY(0); opacity: 1; }
-            50% { transform: scaleY(0.1) translateY(-5px); opacity: 0.7; } /* পাখা একদম চিকন হয়ে মিলে যাওয়ার ভাব */
+          /* --- Front-Facing Bird Wing Flap --- */
+          @keyframes majesticFlap {
+            0%, 100% { transform: rotateX(0deg) translateY(0px); }
+            50% { transform: rotateX(60deg) translateY(-10px); } /* ডানা ওপর-নিচ হওয়ার মুভমেন্ট */
           }
           
-          .animate-bird-flap {
-            animation: rapidBirdFlap 0.15s linear infinite; /* অত্যন্ত দ্রুত ফ্লাপিং */
+          /* --- Bird Hovering in Air --- */
+          @keyframes majesticHover {
+            0%, 100% { transform: translate(-50%, -60%) translateY(0px); }
+            50% { transform: translate(-50%, -60%) translateY(-15px); }
+          }
+
+          .animate-wings {
+            animation: majesticFlap 1.5s ease-in-out infinite;
+            transform-origin: center center;
+            transform-style: preserve-3d;
+          }
+          
+          .animate-bird-body {
+            animation: majesticHover 4s ease-in-out infinite;
           }
         `}
       </style>
 
-      {/* --- Premium Animated Background Start (Exactly the same as before) --- */}
+      {/* --- Premium Animated Background Start --- */}
       <div className="absolute inset-0 w-full h-full overflow-hidden z-0">
         
         {/* Subtle Cyber Grid */}
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff0a_1px,transparent_1px),linear-gradient(to_bottom,#ffffff0a_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_0%,#000_70%,transparent_100%)]"></div>
 
-        {/* Liquid Aurora Blur Elements (Do Not Change) */}
+        {/* Liquid Aurora Blur Elements (আলোর মেঘগুলো ঠিক রাখা হয়েছে) */}
         <div className="absolute top-1/4 left-1/4 w-[400px] h-[400px] bg-cyan-500/30 rounded-full mix-blend-screen blur-[120px] animate-blob"></div>
         <div className="absolute top-1/3 right-1/4 w-[450px] h-[450px] bg-purple-600/30 rounded-full mix-blend-screen blur-[120px] animate-blob" style={{ animationDelay: '4s' }}></div>
         <div className="absolute -bottom-10 left-1/3 w-[500px] h-[500px] bg-emerald-500/20 rounded-full mix-blend-screen blur-[120px] animate-blob" style={{ animationDelay: '8s' }}></div>
 
-        {/* --- ADDED: Glowing Kingfisher Bird in the Center --- */}
-        {/* পাটি ঠিক টেক্সটের মিডিলে এবং পেছনে ভেসে থাকবে */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-[60%] w-[300px] h-[200px] z-0 pointer-events-none flex items-center justify-center">
-          <div className="w-full h-full text-cyan-400 drop-shadow-[0_0_20px_rgba(34,211,238,0.7)]">
-            <svg viewBox="0 0 200 150" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
-              {/* Bird Body and Head (মাথা ও শরীর) */}
-              <path fill="currentColor" d="M100 60 C80 50 60 60 50 80 C40 100 60 120 100 120 C140 120 160 100 150 80 C140 60 120 50 100 60 Z" />
-              {/* Eye (চোখ) */}
-              <circle cx="85" cy="78" r="3" fill="black" />
-              {/* Long Beak (মাছরাঙার বিখ্যাত লম্বা ঠোঁট) */}
-              <path d="M50 80 L10 90 L50 88 Z" fill="#f59e0b" /> {/* কমলা/সোনালী ঠোঁট */}
+        {/* --- The Front-Facing Majestic Bird --- */}
+        {/* কার্টুন লুক বাদ দিয়ে তীক্ষ্ণ সিলুয়েট ব্যবহার করা হয়েছে */}
+        <div className="absolute top-1/2 left-1/2 w-[200px] h-[200px] z-0 pointer-events-none animate-bird-body">
+          <div className="w-full h-full text-white opacity-90 drop-shadow-[0_0_20px_rgba(255,255,255,0.8)]">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" className="w-full h-full">
               
-              {/* --- Animated Rapid Wings (মাঝখানে মিলে যাবে) --- */}
-              <g className="animate-bird-flap">
-                {/* Left Wing (বাম পাখা) */}
-                <path fill="#06b6d4" d="M100 60 C80 30 50 20 20 40 C50 50 80 70 100 60 Z" />
-                {/* Right Wing (ডান পাখা) */}
-                <path fill="#22d3ee" d="M100 60 C120 30 150 20 180 40 C150 50 120 70 100 60 Z" />
+              {/* Bird Body (সামনে থেকে দেখা পাখির শরীর ও লেজ) */}
+              <path fill="currentColor" d="M48,25 C50,15 52,15 52,25 C55,45 58,70 54,90 C52,95 48,95 46,90 C42,70 45,45 48,25 Z" />
+              
+              {/* Animated Wings (ডান এবং বাম ডানা যা নড়াচড়া করবে) */}
+              <g className="animate-wings">
+                {/* Left Wing */}
+                <path fill="currentColor" d="M48,35 C30,10 5,20 2,40 C10,50 35,55 46,55 Z" />
+                {/* Right Wing */}
+                <path fill="currentColor" d="M52,35 C70,10 95,20 98,40 C90,50 65,55 54,55 Z" />
               </g>
+              
             </svg>
           </div>
         </div>
+
       </div>
       {/* --- Premium Animated Background End --- */}
 
