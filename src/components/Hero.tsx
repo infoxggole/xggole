@@ -12,7 +12,6 @@ export default function Hero({ onContactClick }: HeroProps) {
       {/* --- CSS Animations --- */}
       <style>
         {`
-          /* Aurora Blobs */
           @keyframes blob {
             0% { transform: translate(0px, 0px) scale(1); }
             33% { transform: translate(50px, -50px) scale(1.1); }
@@ -21,15 +20,14 @@ export default function Hero({ onContactClick }: HeroProps) {
           }
           .animate-blob { animation: blob 15s infinite ease-in-out; }
 
-          /* Jellyfish Float */
           @keyframes floatUp {
-            0% { transform: translateY(110vh) translateX(-20px); opacity: 0; }
-            50% { opacity: 0.4; }
-            100% { transform: translateY(-20vh) translateX(30px); opacity: 0; }
+            0% { transform: translateY(100vh) translateX(-50px); opacity: 0; }
+            20% { opacity: 0.5; }
+            80% { opacity: 0.5; }
+            100% { transform: translateY(-20vh) translateX(50px); opacity: 0; }
           }
-          .animate-jelly { animation: floatUp 20s linear infinite; }
+          .animate-jelly { animation: floatUp 15s linear infinite; }
 
-          /* Typing Animation */
           @keyframes typing {
             from { width: 0 }
             to { width: 100% }
@@ -45,16 +43,16 @@ export default function Hero({ onContactClick }: HeroProps) {
 
       {/* --- Animated Background --- */}
       <div className="absolute inset-0 w-full h-full z-0 overflow-hidden">
-        {/* Grid */}
+        
+        {/* Subtle Cyber Grid */}
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff0a_1px,transparent_1px),linear-gradient(to_bottom,#ffffff0a_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_0%,#000_70%,transparent_100%)]"></div>
 
         {/* Aurora Blobs */}
-        <div className="absolute top-1/4 left-1/4 w-[400px] h-[400px] bg-cyan-500/20 rounded-full mix-blend-screen blur-[120px] animate-blob"></div>
-        <div className="absolute top-1/3 right-1/4 w-[450px] h-[450px] bg-purple-600/20 rounded-full mix-blend-screen blur-[120px] animate-blob" style={{ animationDelay: '4s' }}></div>
-
-        {/* Jellyfish Lights */}
-        <div className="absolute left-[10%] w-[150px] h-[200px] bg-cyan-400/10 rounded-[50%] blur-[40px] animate-jelly"></div>
-        <div className="absolute right-[20%] w-[100px] h-[150px] bg-blue-500/10 rounded-[50%] blur-[40px] animate-jelly" style={{ animationDelay: '7s' }}></div>
+        <div className="absolute top-1/4 left-1/4 w-[400px] h-[400px] bg-cyan-500/10 rounded-full mix-blend-screen blur-[120px] animate-blob"></div>
+        
+        {/* Glowing Jellyfish Lights (Increased Opacity for visibility) */}
+        <div className="absolute left-[15%] w-[200px] h-[250px] bg-cyan-400/30 rounded-[50%] blur-[60px] animate-jelly"></div>
+        <div className="absolute right-[25%] w-[150px] h-[200px] bg-blue-500/30 rounded-[50%] blur-[60px] animate-jelly" style={{ animationDelay: '5s' }}></div>
       </div>
 
       {/* --- Main Content --- */}
