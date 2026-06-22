@@ -9,36 +9,53 @@ export default function Hero({ onContactClick }: HeroProps) {
   return (
     <section className="relative h-screen w-full overflow-hidden bg-zinc-950">
       
-      {/* --- Custom Animation Styles for Jellyfish --- */}
+      {/* --- Custom Animation Styles for Realistic Jellyfish Movement --- */}
       <style>
         {`
-          @keyframes floatUp {
-            0% { transform: translateY(110vh) translateX(-20px) rotate(-5deg); }
-            50% { transform: translateY(40vh) translateX(30px) rotate(5deg); }
-            100% { transform: translateY(-50vh) translateX(-10px) rotate(-2deg); }
+          /* প্রথম জেলিফিশের জন্য এঁকেবেঁকে চলার পথ */
+          @keyframes floatDrift1 {
+            0% { transform: translateY(110vh) translateX(0px) rotate(-5deg); }
+            25% { transform: translateY(65vh) translateX(-60px) rotate(8deg); }
+            50% { transform: translateY(20vh) translateX(40px) rotate(-6deg); }
+            75% { transform: translateY(-25vh) translateX(-40px) rotate(5deg); }
+            100% { transform: translateY(-70vh) translateX(20px) rotate(-2deg); }
           }
+
+          /* দ্বিতীয় জেলিফিশের জন্য ভিন্ন এঁকেবেঁকে চলার পথ */
+          @keyframes floatDrift2 {
+            0% { transform: translateY(110vh) translateX(0px) rotate(5deg); }
+            25% { transform: translateY(75vh) translateX(70px) rotate(-8deg); }
+            50% { transform: translateY(35vh) translateX(-50px) rotate(7deg); }
+            75% { transform: translateY(-5vh) translateX(60px) rotate(-5deg); }
+            100% { transform: translateY(-55vh) translateX(-30px) rotate(3deg); }
+          }
+
+          /* শ্বাস নেওয়া বা সাঁতার কাটার অরিজিনাল মুভমেন্ট */
           @keyframes jellyfishPulse {
             0%, 100% { transform: scale(1, 1); }
-            50% { transform: scale(1.06, 0.94); } /* জেলিফিশের শরীর সংকুচিত-প্রসারিত হওয়া */
+            50% { transform: scale(1.08, 0.92); } 
           }
+
           .jelly-float-1 {
             position: absolute;
-            left: 15%;
-            width: 250px;
-            animation: floatUp 20s ease-in-out infinite;
+            left: 20%;
+            width: 220px;
+            animation: floatDrift1 24s linear infinite;
             z-index: 0;
           }
+
           .jelly-float-2 {
             position: absolute;
-            right: 15%;
+            right: 20%;
             width: 150px;
-            animation: floatUp 28s ease-in-out infinite 8s;
+            animation: floatDrift2 28s linear infinite 4s;
             z-index: 0;
           }
+
           .jelly-pulse {
             width: 100%;
             height: 100%;
-            animation: jellyfishPulse 3s ease-in-out infinite;
+            animation: jellyfishPulse 3.5s ease-in-out infinite;
             transform-origin: top center;
           }
         `}
@@ -53,7 +70,6 @@ export default function Hero({ onContactClick }: HeroProps) {
         {/* First Glowing Jellyfish (Main) */}
         <div className="jelly-float-1">
           <div className="jelly-pulse opacity-40">
-            {/* স্পষ্ট জেলিফিশের SVG - সায়ান রঙের গ্লো সহ */}
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 300" className="w-full h-full text-cyan-400 drop-shadow-[0_0_15px_rgba(34,211,238,0.6)]">
               {/* Jellyfish Body */}
               <path fill="currentColor" d="M100 20 C40 20 20 80 20 120 C20 140 35 140 45 130 C55 120 65 140 75 130 C85 120 95 140 105 130 C115 120 125 140 135 130 C145 120 155 140 165 130 C175 120 180 140 180 120 C180 80 160 20 100 20 Z" />
@@ -67,7 +83,7 @@ export default function Hero({ onContactClick }: HeroProps) {
           </div>
         </div>
 
-        {/* Second Glowing Jellyfish (Smaller, delayed) */}
+        {/* Second Glowing Jellyfish (Smaller) */}
         <div className="jelly-float-2">
           <div className="jelly-pulse opacity-30">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 300" className="w-full h-full text-indigo-400 drop-shadow-[0_0_15px_rgba(129,140,248,0.5)]">
@@ -91,14 +107,10 @@ export default function Hero({ onContactClick }: HeroProps) {
       <div className="relative z-20 h-full flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-4xl mx-auto">
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-8 animate-fade-in text-white">
-            {/* Transform - Silver Metallic Box */}
             <span className="inline-block px-6 py-2 border-2 border-slate-300 rounded-full bg-gradient-to-r from-slate-100 to-slate-400 text-black shadow-[0_0_15px_rgba(255,255,255,0.2)] mb-4">
               Transform
             </span>
-            
             <br />
-
-            {/* Your Vision Into Reality - Single Line Gradient */}
             <span className="bg-gradient-to-r from-cyan-400 via-white to-blue-500 bg-clip-text text-transparent drop-shadow-sm">
               Your Vision Into Reality
             </span>
