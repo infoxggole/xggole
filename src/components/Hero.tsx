@@ -15,10 +15,22 @@ export default function Hero({ onContactClick }: HeroProps) {
         {/* Subtle Cyber Grid */}
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff0a_1px,transparent_1px),linear-gradient(to_bottom,#ffffff0a_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_0%,#000_70%,transparent_100%)]"></div>
 
-        {/* Animated Glowing Orbs (light was increase) */}
-        <div className="absolute top-0 -left-10 w-[500px] h-[500px] bg-amber-500/40 rounded-full mix-blend-screen blur-3xl animate-pulse" style={{ animationDuration: '4s' }}></div>
-        <div className="absolute top-20 -right-10 w-[400px] h-[400px] bg-rose-500/40 rounded-full mix-blend-screen blur-3xl animate-pulse" style={{ animationDelay: '2s', animationDuration: '5s' }}></div>
-        <div className="absolute -bottom-20 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-orange-600/30 rounded-full mix-blend-screen blur-3xl animate-pulse" style={{ animationDelay: '4s', animationDuration: '6s' }}></div>
+        {/* Abstract Glowing Creature Aura (Firefly/Butterfly inspired) */}
+        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 flex items-center justify-center opacity-70">
+          
+          {/* Main Body / Core - মাঝখানের শরীর */}
+          <div className="absolute w-40 h-56 bg-amber-400/40 rounded-full blur-3xl animate-pulse" style={{ animationDuration: '4s' }}></div>
+          
+          {/* Left Wing / Aura - বাঁ দিকের ডানা */}
+          <div className="absolute -left-32 w-64 h-80 bg-orange-500/30 rounded-[100%] blur-[40px] animate-pulse origin-right -rotate-12" style={{ animationDuration: '5s' }}></div>
+          
+          {/* Right Wing / Aura - ডান দিকের ডানা */}
+          <div className="absolute -right-32 w-64 h-80 bg-rose-500/30 rounded-[100%] blur-[40px] animate-pulse origin-left rotate-12" style={{ animationDuration: '5s' }}></div>
+          
+          {/* Trailing Tail / Jellyfish effect - নিচের দিকের লেজ বা তরঙ্গ */}
+          <div className="absolute top-32 w-24 h-64 bg-amber-600/20 rounded-full blur-3xl animate-pulse" style={{ animationDuration: '6s', animationDelay: '1s' }}></div>
+        
+        </div>
       </div>
       {/* --- Premium Animated Background End --- */}
 
@@ -28,7 +40,7 @@ export default function Hero({ onContactClick }: HeroProps) {
       {/* Content (i used a-z so that the text stays at the top) */}
       <div className="relative z-20 h-full flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-4xl mx-auto">
-     <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-8 animate-fade-in text-white">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-8 animate-fade-in text-white">
             {/* Transform - Silver Metallic Box */}
             <span className="inline-block px-6 py-2 border-2 border-slate-300 rounded-full bg-gradient-to-r from-slate-100 to-slate-400 text-black shadow-[0_0_15px_rgba(255,255,255,0.2)] mb-4">
               Transform
