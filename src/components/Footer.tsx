@@ -32,7 +32,7 @@ export default function Footer() {
           <div className="space-y-3 text-gray-400 text-sm">
             <div className="flex items-center justify-center md:justify-start gap-3">
               <Mail size={16} className="text-blue-500" />
-              <span>contact@fggole.com</span>
+              <span>contact@xggole.com</span>
             </div>
             <div className="flex items-center justify-center md:justify-start gap-3">
               <Phone size={16} className="text-blue-500" />
