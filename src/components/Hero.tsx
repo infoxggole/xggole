@@ -38,7 +38,7 @@ export default function Hero({ onContactClick }: HeroProps) {
             display: inline-block;
             overflow: hidden;
             white-space: nowrap;
-            border-right: .15em solid cyan; /* ক্যারেট বা কার্সার */
+            border-right: .15em solid cyan;
             animation: typing 3.5s steps(40, end), blink-caret .75s step-end infinite;
           }
         `}
@@ -62,15 +62,25 @@ export default function Hero({ onContactClick }: HeroProps) {
               Transform
             </span>
             <br />
-            {/* টাইপিং ইফেক্ট এখানে বসানো হয়েছে */}
             <span className="typing-text bg-gradient-to-r from-cyan-400 via-white to-blue-400 bg-clip-text text-transparent">
               Your Vision Into Reality
             </span>
           </h1>
-          <div className="flex gap-4 justify-center">
-            <Link to="/work" className="px-8 py-4 bg-white text-black font-semibold rounded-full hover:scale-105 transition-all">
+          
+          {/* --- Magnetic Buttons --- */}
+          <div className="flex gap-6 justify-center">
+            <Link 
+              to="/work" 
+              className="px-8 py-4 bg-white text-black font-semibold rounded-full transition-all duration-500 ease-[cubic-bezier(0.175,0.885,0.32,1.275)] hover:scale-110 hover:shadow-[0_0_30px_rgba(255,255,255,0.4)] active:scale-95"
+            >
               View My Work
             </Link>
+            <button 
+              onClick={onContactClick}
+              className="px-8 py-4 border-2 border-white/20 text-white font-semibold rounded-full transition-all duration-500 ease-[cubic-bezier(0.175,0.885,0.32,1.275)] hover:scale-110 hover:border-cyan-400 hover:shadow-[0_0_30px_rgba(34,211,238,0.4)] active:scale-95"
+            >
+              Get in Touch
+            </button>
           </div>
         </div>
       </div>
