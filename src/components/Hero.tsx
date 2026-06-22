@@ -9,35 +9,76 @@ export default function Hero({ onContactClick }: HeroProps) {
   return (
     <section className="relative h-screen w-full overflow-hidden bg-zinc-950">
       
+      {/* --- Custom Animation Styles for Birds --- */}
+      <style>
+        {`
+          @keyframes glide {
+            0%, 100% { transform: translateY(0px) rotate(-5deg); }
+            50% { transform: translateY(-30px) rotate(5deg); }
+          }
+          @keyframes panAcross {
+            from { transform: translateX(-30%); }
+            to { transform: translateX(120%); }
+          }
+          .bird-glide {
+            animation: glide 8s ease-in-out infinite;
+          }
+          .bird-pan-1 {
+            position: absolute;
+            top: 20%;
+            left: -20%;
+            width: 100%;
+            height: 100%;
+            animation: panAcross 45s linear infinite;
+            z-index: 0;
+          }
+          .bird-pan-2 {
+            position: absolute;
+            top: 10%;
+            left: -30%;
+            width: 100%;
+            height: 100%;
+            animation: panAcross 60s linear infinite 15s;
+            z-index: 0;
+          }
+        `}
+      </style>
+
       {/* --- Premium Animated Background Start --- */}
       <div className="absolute inset-0 w-full h-full overflow-hidden z-0">
         
         {/* Subtle Cyber Grid */}
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff0a_1px,transparent_1px),linear-gradient(to_bottom,#ffffff0a_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_0%,#000_70%,transparent_100%)]"></div>
 
-        {/* Abstract Glowing Creature Aura (Firefly/Butterfly inspired) */}
-        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 flex items-center justify-center opacity-70">
-          
-          {/* Main Body / Core - মাঝখানের শরীর */}
-          <div className="absolute w-40 h-56 bg-amber-400/40 rounded-full blur-3xl animate-pulse" style={{ animationDuration: '4s' }}></div>
-          
-          {/* Left Wing / Aura - বাঁ দিকের ডানা */}
-          <div className="absolute -left-32 w-64 h-80 bg-orange-500/30 rounded-[100%] blur-[40px] animate-pulse origin-right -rotate-12" style={{ animationDuration: '5s' }}></div>
-          
-          {/* Right Wing / Aura - ডান দিকের ডানা */}
-          <div className="absolute -right-32 w-64 h-80 bg-rose-500/30 rounded-[100%] blur-[40px] animate-pulse origin-left rotate-12" style={{ animationDuration: '5s' }}></div>
-          
-          {/* Trailing Tail / Jellyfish effect - নিচের দিকের লেজ বা তরঙ্গ */}
-          <div className="absolute top-32 w-24 h-64 bg-amber-600/20 rounded-full blur-3xl animate-pulse" style={{ animationDuration: '6s', animationDelay: '1s' }}></div>
-        
+        {/* Soft Glowing Accent in Center */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-slate-500/5 rounded-full blur-[100px] pointer-events-none"></div>
+
+        {/* First Flying Bird (Main) */}
+        <div className="bird-pan-1">
+          <div className="bird-glide w-full max-w-4xl opacity-[0.06] text-white">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="currentColor">
+              {/* Elegant Bird Silhouette Path */}
+              <path d="M50,45 C45,55 30,65 10,60 C25,50 40,40 45,35 C45,35 48,30 50,30 C52,30 55,35 55,35 C60,40 75,50 90,60 C70,65 55,55 50,45 Z" />
+            </svg>
+          </div>
         </div>
+
+        {/* Second Flying Bird (Smaller, further away to create depth) */}
+        <div className="bird-pan-2">
+          <div className="bird-glide w-full max-w-xl opacity-[0.03] text-slate-300" style={{ animationDelay: '3s' }}>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="currentColor">
+              <path d="M50,45 C45,55 30,65 10,60 C25,50 40,40 45,35 C45,35 48,30 50,30 C52,30 55,35 55,35 C60,40 75,50 90,60 C70,65 55,55 50,45 Z" />
+            </svg>
+          </div>
+        </div>
+
       </div>
       {/* --- Premium Animated Background End --- */}
 
       {/* Gradient Overlay for text readability (z-10) */}
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-zinc-950/50 to-zinc-950 z-10" />
 
-      {/* Content (i used a-z so that the text stays at the top) */}
+      {/* Content */}
       <div className="relative z-20 h-full flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-4xl mx-auto">
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-8 animate-fade-in text-white">
@@ -46,7 +87,7 @@ export default function Hero({ onContactClick }: HeroProps) {
               Transform
             </span>
             
-            <br /> {/*ut will break into a new line after transformation  */}
+            <br />
 
             {/* Your Vision Into Reality - Single Line Gradient */}
             <span className="bg-gradient-to-r from-blue-400 via-white to-slate-400 bg-clip-text text-transparent">
