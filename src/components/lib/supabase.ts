@@ -1,12 +1,8 @@
+// src/lib/supabase.ts
 import { createClient } from '@supabase/supabase-js';
 
-// এনভায়রনমেন্ট থেকে ভেরিয়েবল রিড করবে
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
-
-// সুরক্ষা চেক (যদি কি না থাকে, তবে কোড এখানেই এরর দেবে, লুকানো এরর হবে না)
-if (!supabaseUrl || !supabaseAnonKey) {
-  throw new Error("Supabase URL or Anon Key is missing in .env file.");
-}
+// এখানে আপনার সুপারবেস URL এবং ANON_KEY বসান
+const supabaseUrl = 'YOUR_SUPABASE_URL=https://uuapaszbwtjfsgqrzlbo.supabase.co';
+const supabaseAnonKey = 'YOUR_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InV1YXBhc3pid3RqZnNncXJ6bGJvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE5MzY4MzksImV4cCI6MjA5NzUxMjgzOX0.zNSq_8LlQTEAXMODbRCGKHPEDgl0jC7f6AlaRkvq5zM';
 
 export const supabase = createClient(supabaseUrl, supabaseAnonKey);
