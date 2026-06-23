@@ -46,7 +46,7 @@ export default function Navbar({ onContactClick }: NavbarProps) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           
-          {/* লোগোর সাইজ বড় করা হয়েছে এবং কাছাকাছি আনা হয়েছে */}
+          {/* লোগো */}
           <Link to="/" className="flex-shrink-0 flex items-center">
             <span className="text-6xl font-bold text-white inline-block animate-bounce -mr-2">
               x
@@ -77,15 +77,6 @@ export default function Navbar({ onContactClick }: NavbarProps) {
                 </button>
               )
             ))}
-          </div>
-
-          <div className="hidden md:flex items-center space-x-4">
-            <button
-              onClick={onContactClick}
-              className="px-6 py-2.5 bg-gradient-to-r from-amber-500 to-orange-500 text-white text-sm font-semibold rounded-full hover:from-amber-600 hover:to-orange-600 transition-all duration-300 hover:shadow-lg hover:shadow-orange-500/25"
-            >
-              Get in Touch
-            </button>
           </div>
 
           {/* Mobile menu button */}
@@ -125,15 +116,6 @@ export default function Navbar({ onContactClick }: NavbarProps) {
               </button>
             )
           ))}
-          <button
-            onClick={() => {
-              setIsOpen(false);
-              onContactClick();
-            }}
-            className="w-full mt-4 px-6 py-3 bg-gradient-to-r from-amber-500 to-orange-500 text-white font-semibold rounded-full"
-          >
-            Get in Touch
-          </button>
         </div>
       </div>
     </nav>
