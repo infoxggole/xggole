@@ -1,16 +1,10 @@
-import { Code, Smartphone, Globe, Video, Palette, Layers, Sparkles, Briefcase } from 'lucide-react';
+import { Code, Smartphone, Globe, Palette } from 'lucide-react';
 
 const developmentServices = [
   { icon: Globe, title: 'Website Development', description: 'Responsive and fast websites with a premium digital presence.' },
   { icon: Code, title: 'Web App Development', description: 'Scalable web applications built with modern, robust technology.' },
   { icon: Smartphone, title: 'Mobile App Development', description: 'Intuitive mobile interfaces that engage and retain users.' },
-];
-
-const creativeServices = [
-  { icon: Video, title: 'Cinematic Brand Story', description: 'Compelling visual narratives that capture your brand essence.' },
   { icon: Palette, title: 'Corporate Identity Suite', description: 'Complete brand systems that communicate your unique value.' },
-  { icon: Layers, title: 'Product Launch Video', description: 'High-impact visuals to showcase your products effectively.' },
-  { icon: Sparkles, title: 'Abstract Art Collection', description: 'Curated digital artworks exploring technology and emotion.' },
 ];
 
 export default function Services() {
@@ -28,20 +22,12 @@ export default function Services() {
           </p>
         </div>
 
-        {/* Digital Development Category */}
+        {/* Digital Development Category (Now including Corporate Identity Suite) */}
         <ServiceCategory 
           title="Digital Development"
           description="We build robust, scalable, and intuitive digital solutions. From responsive websites to complex web and mobile applications, we turn code into high-performing experiences."
           bgImage="https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=2000&auto=format&fit=crop"
           services={developmentServices}
-        />
-
-        {/* Creative & Branding Category */}
-        <ServiceCategory 
-          title="Creative & Branding"
-          description="We craft compelling brand stories and visual identities. Our creative team combines artistry with strategy to build systems that capture attention and communicate your value."
-          bgImage="https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=2000&auto=format&fit=crop"
-          services={creativeServices}
         />
       </div>
     </section>
