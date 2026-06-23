@@ -8,28 +8,18 @@ const developmentServices = [
   { icon: Palette, title: 'Corporate Identity Suite', description: 'Complete brand systems that communicate your unique value.' },
 ];
 
-// ১. অ্যানিমেশনের ভেরিয়েন্টস
+// অ্যানিমেশন সেটিংস
 const containerVariants = {
   hidden: { opacity: 0 },
-  show: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.15, // কার্ডগুলো একটু বিরতিতে আসবে
-    },
-  },
+  show: { opacity: 1, transition: { staggerChildren: 0.15 } },
 };
 
 const itemVariants = {
-  hidden: { opacity: 0, y: 30, scale: 0.95 }, // কার্ডগুলো একটু নিচে এবং ছোট অবস্থায় থাকবে
-  show: { 
-    opacity: 1, 
-    y: 0, 
-    scale: 1,
-    transition: { type: "spring", stiffness: 100, damping: 15 } // স্মুথ স্প্রিং ইফেক্ট
-  },
+  hidden: { opacity: 0, y: 30, scale: 0.95 },
+  show: { opacity: 1, y: 0, scale: 1, transition: { type: "spring", stiffness: 100, damping: 15 } },
 };
 
-export default function Services() {
+export default function Services({ onContactClick }: { onContactClick: () => void }) {
   return (
     <section id="services" className="py-24 bg-zinc-950">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -44,13 +34,14 @@ export default function Services() {
           description="We build robust, scalable, and intuitive digital solutions."
           bgImage="https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=2000&auto=format&fit=crop"
           services={developmentServices}
+          onContactClick={onContactClick}
         />
       </div>
     </section>
   );
 }
 
-function ServiceCategory({ title, description, bgImage, services }: { title: string, description: string, bgImage: string, services: any[] }) {
+function ServiceCategory({ title, description, bgImage, services, onContactClick }: { title: string, description: string, bgImage: string, services: any[], onContactClick: () => void }) {
   return (
     <div className="relative mb-20 rounded-3xl overflow-hidden border border-zinc-800">
       <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: `url(${bgImage})` }} />
@@ -60,7 +51,6 @@ function ServiceCategory({ title, description, bgImage, services }: { title: str
         <h3 className="text-2xl md:text-3xl font-bold text-white mb-4 border-l-4 border-blue-500 pl-4">{title}</h3>
         <p className="text-gray-300 max-w-3xl mb-10 leading-relaxed">{description}</p>
         
-        {/* ২. এখানে আমরা containerVariants যুক্ত করেছি */}
         <motion.div 
           variants={containerVariants}
           initial="hidden"
@@ -69,7 +59,7 @@ function ServiceCategory({ title, description, bgImage, services }: { title: str
           className={`grid grid-cols-1 ${services.length > 3 ? 'md:grid-cols-2 lg:grid-cols-4' : 'md:grid-cols-3'} gap-6`}
         >
           {services.map((service) => (
-            <ServiceCard key={service.title} service={service} />
+            <ServiceCard key={service.title} service={service} onContactClick={onContactClick} />
           ))}
         </motion.div>
       </div>
@@ -77,21 +67,13 @@ function ServiceCategory({ title, description, bgImage, services }: { title: str
   );
 }
 
-function ServiceCard({ service }: { service: any }) {
-  const handleInquiry = () => {
-    const contactSection = document.getElementById('contact');
-    if (contactSection) {
-      contactSection.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
+function ServiceCard({ service, onContactClick }: { service: any, onContactClick: () => void }) {
   return (
-    // ৩. প্রতিটি কার্ডে itemVariants প্রয়োগ করা হয়েছে
     <motion.div 
       variants={itemVariants}
       whileHover={{ 
         y: -10, 
-        scale: 1.02, // হোভার করলে সামান্য বড় হবে
+        scale: 1.02, 
         transition: { type: "spring", stiffness: 400, damping: 25 } 
       }}
       className="group p-6 rounded-2xl bg-zinc-900/40 border border-zinc-700/50 hover:border-blue-500/50 transition-colors duration-300 flex flex-col h-full backdrop-blur-md"
@@ -105,7 +87,7 @@ function ServiceCard({ service }: { service: any }) {
       </div>
 
       <button 
-        onClick={handleInquiry}
+        onClick={onContactClick}
         className="w-full py-2.5 rounded-xl border border-blue-500/30 bg-blue-500/5 text-white font-medium hover:bg-blue-600 hover:border-blue-500 transition-all duration-300"
       >
         Get in Touch
