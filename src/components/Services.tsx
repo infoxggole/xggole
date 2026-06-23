@@ -1,10 +1,35 @@
 import { Code, Smartphone, Globe, Palette } from 'lucide-react';
 import { motion } from 'framer-motion';
 
-// ... (আপনার ভেরিয়েন্টস আগের মতোই থাকবে)
+const developmentServices = [
+  { icon: Globe, title: 'Website Development', description: 'Responsive and fast websites with a premium digital presence.' },
+  { icon: Code, title: 'Web App Development', description: 'Scalable web applications built with modern, robust technology.' },
+  { icon: Smartphone, title: 'Mobile App Development', description: 'Intuitive mobile interfaces that engage and retain users.' },
+  { icon: Palette, title: 'Corporate Identity Suite', description: 'Complete brand systems that communicate your unique value.' },
+];
 
-// Services কম্পোনেন্টে onContactClick যোগ করা হয়েছে
-export default function Services({ onContactClick }: { onContactClick: () => void }) {
+// ১. অ্যানিমেশনের ভেরিয়েন্টস
+const containerVariants = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.15, // কার্ডগুলো একটু বিরতিতে আসবে
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 30, scale: 0.95 }, // কার্ডগুলো একটু নিচে এবং ছোট অবস্থায় থাকবে
+  show: { 
+    opacity: 1, 
+    y: 0, 
+    scale: 1,
+    transition: { type: "spring", stiffness: 100, damping: 15 } // স্মুথ স্প্রিং ইফেক্ট
+  },
+};
+
+export default function Services() {
   return (
     <section id="services" className="py-24 bg-zinc-950">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -19,25 +44,32 @@ export default function Services({ onContactClick }: { onContactClick: () => voi
           description="We build robust, scalable, and intuitive digital solutions."
           bgImage="https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=2000&auto=format&fit=crop"
           services={developmentServices}
-          onContactClick={onContactClick} // এখানে প্রপ পাস করা হয়েছে
         />
       </div>
     </section>
   );
 }
 
-// ServiceCategory-তেও প্রপ পাস করা হয়েছে
-function ServiceCategory({ title, description, bgImage, services, onContactClick }: { title: string, description: string, bgImage: string, services: any[], onContactClick: () => void }) {
+function ServiceCategory({ title, description, bgImage, services }: { title: string, description: string, bgImage: string, services: any[] }) {
   return (
     <div className="relative mb-20 rounded-3xl overflow-hidden border border-zinc-800">
-      {/* ... আগের কোড */}
+      <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: `url(${bgImage})` }} />
+      <div className="absolute inset-0 bg-black/85 backdrop-blur-sm" />
+
       <div className="relative p-8 md:p-12">
+        <h3 className="text-2xl md:text-3xl font-bold text-white mb-4 border-l-4 border-blue-500 pl-4">{title}</h3>
+        <p className="text-gray-300 max-w-3xl mb-10 leading-relaxed">{description}</p>
+        
+        {/* ২. এখানে আমরা containerVariants যুক্ত করেছি */}
         <motion.div 
-          // ... (variants গুলো আগের মতোই)
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: "-100px" }}
           className={`grid grid-cols-1 ${services.length > 3 ? 'md:grid-cols-2 lg:grid-cols-4' : 'md:grid-cols-3'} gap-6`}
         >
           {services.map((service) => (
-            <ServiceCard key={service.title} service={service} onContactClick={onContactClick} />
+            <ServiceCard key={service.title} service={service} />
           ))}
         </motion.div>
       </div>
@@ -45,11 +77,23 @@ function ServiceCategory({ title, description, bgImage, services, onContactClick
   );
 }
 
-// ServiceCard-এ সরাসরি onContactClick ব্যবহার করা হয়েছে
-function ServiceCard({ service, onContactClick }: { service: any, onContactClick: () => void }) {
+function ServiceCard({ service }: { service: any }) {
+  const handleInquiry = () => {
+    const contactSection = document.getElementById('contact');
+    if (contactSection) {
+      contactSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
+    // ৩. প্রতিটি কার্ডে itemVariants প্রয়োগ করা হয়েছে
     <motion.div 
-      whileHover={{ y: -10, transition: { type: "spring", stiffness: 400, damping: 25 } }}
+      variants={itemVariants}
+      whileHover={{ 
+        y: -10, 
+        scale: 1.02, // হোভার করলে সামান্য বড় হবে
+        transition: { type: "spring", stiffness: 400, damping: 25 } 
+      }}
       className="group p-6 rounded-2xl bg-zinc-900/40 border border-zinc-700/50 hover:border-blue-500/50 transition-colors duration-300 flex flex-col h-full backdrop-blur-md"
     >
       <div className="flex-grow">
@@ -61,7 +105,7 @@ function ServiceCard({ service, onContactClick }: { service: any, onContactClick
       </div>
 
       <button 
-        onClick={onContactClick} // সরাসরি প্রপ থেকে কল করা হয়েছে
+        onClick={handleInquiry}
         className="w-full py-2.5 rounded-xl border border-blue-500/30 bg-blue-500/5 text-white font-medium hover:bg-blue-600 hover:border-blue-500 transition-all duration-300"
       >
         Get in Touch
