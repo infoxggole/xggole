@@ -1,5 +1,5 @@
 import { Code, Smartphone, Globe, Palette } from 'lucide-react';
-import { motion } from 'framer-motion'; // অ্যানিমেশনের জন্য
+import { motion } from 'framer-motion';
 
 const developmentServices = [
   { icon: Globe, title: 'Website Development', description: 'Responsive and fast websites with a premium digital presence.' },
@@ -55,23 +55,30 @@ function ServiceCategory({ title, description, bgImage, services }: { title: str
 }
 
 function ServiceCard({ service, index }: { service: any, index: number }) {
-  // বাটনের ফাংশন: স্ক্রল করার জন্য
   const handleInquiry = () => {
     const contactSection = document.getElementById('contact');
     if (contactSection) {
       contactSection.scrollIntoView({ behavior: 'smooth' });
     } else {
-      alert("Contact section not found!"); // যদি কন্টাক্ট সেকশন না থাকে
+      alert("Contact section not found!");
     }
   };
 
   return (
     <motion.div 
-      initial={{ opacity: 0, y: 20 }} // শুরুর অবস্থা
-      whileInView={{ opacity: 1, y: 0 }} // স্ক্রল করে যখন আসবে
-      viewport={{ once: true }} // একবারই অ্যানিমেশন হবে
-      transition={{ duration: 0.5, delay: index * 0.1 }} // প্রতিটি কার্ড একটু দেরি করে আসবে
-      whileHover={{ y: -10 }} // হোভার করলে উপরে উঠবে
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-50px" }}
+      transition={{ 
+        type: "spring",
+        stiffness: 100,
+        damping: 15,
+        delay: index * 0.1
+      }}
+      whileHover={{ 
+        y: -10, 
+        transition: { type: "spring", stiffness: 400, damping: 25 }
+      }}
       className="group p-6 rounded-2xl bg-zinc-900/40 border border-zinc-700/50 hover:border-blue-500/50 transition-all duration-300 flex flex-col h-full"
     >
       <div className="flex-grow">
