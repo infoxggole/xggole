@@ -22,7 +22,7 @@ export default function Services() {
           </p>
         </div>
 
-        {/* Digital Development Category (Now including Corporate Identity Suite) */}
+        {/* Digital Development Category */}
         <ServiceCategory 
           title="Digital Development"
           description="We build robust, scalable, and intuitive digital solutions. From responsive websites to complex web and mobile applications, we turn code into high-performing experiences."
@@ -63,12 +63,26 @@ function ServiceCategory({ title, description, bgImage, services }: { title: str
 // Reusable Service Card Component
 function ServiceCard({ service }: { service: any }) {
   return (
-    <div className="group p-6 rounded-2xl bg-zinc-900/40 border border-zinc-700/50 hover:border-blue-500/50 transition-all duration-300 hover:transform hover:-translate-y-2">
-      <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-600 to-blue-400 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300 shadow-lg shadow-blue-500/20">
-        <service.icon className="w-6 h-6 text-white" />
+    <div className="group p-6 rounded-2xl bg-zinc-900/40 border border-zinc-700/50 hover:border-blue-500/50 transition-all duration-300 flex flex-col h-full">
+      {/* Icon and Content Area */}
+      <div className="flex-grow">
+        <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-600 to-blue-400 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300 shadow-lg shadow-blue-500/20">
+          <service.icon className="w-6 h-6 text-white" />
+        </div>
+        <h3 className="text-lg font-semibold text-white mb-2">{service.title}</h3>
+        <p className="text-sm text-gray-400 leading-relaxed mb-6">{service.description}</p>
       </div>
-      <h3 className="text-lg font-semibold text-white mb-2">{service.title}</h3>
-      <p className="text-sm text-gray-400 leading-relaxed">{service.description}</p>
+
+      {/* Inquiry Button */}
+      <button 
+        onClick={() => {
+          // এখানে আপনার ইনকয়্যারি লিঙ্কের লজিক বসান
+          console.log(`Inquiry requested for: ${service.title}`);
+        }}
+        className="w-full py-2.5 rounded-xl border border-blue-500/30 bg-blue-500/5 text-white font-medium hover:bg-blue-600 hover:border-blue-500 transition-all duration-300"
+      >
+        Inquire Now
+      </button>
     </div>
   );
 }
