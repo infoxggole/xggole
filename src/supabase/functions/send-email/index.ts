@@ -13,7 +13,7 @@ serve(async (req) => {
       "Authorization": `Bearer ${RESEND_API_KEY}`,
     },
     body: JSON.stringify({
-      from: "FGGOLE <onboarding@resend.dev>", // ডোমেইন ভেরিফাই করলে আপনার নিজের ইমেইল দিবেন
+      from: "XGGOLE <onboarding@resend.dev>", // ডোমেইন ভেরিফাই করলে আপনার নিজের ইমেইল দিবেন
       to: to,
       subject: subject,
       html: html,
