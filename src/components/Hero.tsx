@@ -1,15 +1,50 @@
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { ChevronDown } from 'lucide-react';
+// আপনার supabase client ফাইলটি এখানে ইমপোর্ট করুন
+import { supabase } from '../lib/supabase'; 
 
 interface HeroProps {
   onContactClick: () => void;
 }
 
 export default function Hero({ onContactClick }: HeroProps) {
+  const [projectsCount, setProjectsCount] = useState<number>(0);
+  const [avgRating, setAvgRating] = useState<number>(0);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchStats() {
+      try {
+        // ১. প্রজেক্টের সংখ্যা বের করা
+        const { count: projCount } = await supabase
+          .from('projects') // এখানে আপনার টেবিলের নাম দিন
+          .select('*', { count: 'exact', head: true });
+
+        // ২. ক্লায়েন্ট রেটিং বা রিভিউয়ের গড় বের করা
+        const { data: reviews } = await supabase
+          .from('reviews') // এখানে আপনার রিভিউ টেবিলের নাম দিন
+          .select('rating');
+
+        if (projCount) setProjectsCount(projCount);
+        
+        if (reviews && reviews.length > 0) {
+          const sum = reviews.reduce((acc, curr) => acc + (curr.rating || 0), 0);
+          setAvgRating(parseFloat((sum / reviews.length).toFixed(1)));
+        }
+      } catch (error) {
+        console.error("Error fetching stats:", error);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchStats();
+  }, []);
+
   return (
     <section className="relative h-screen w-full overflow-hidden bg-zinc-950">
-      
-      {/* --- CSS Animations --- */}
+      {/* CSS Animations */}
       <style>
         {`
           @keyframes blob {
@@ -19,7 +54,6 @@ export default function Hero({ onContactClick }: HeroProps) {
             100% { transform: translate(0px, 0px) scale(1); }
           }
           .animate-blob { animation: blob 15s infinite ease-in-out; }
-
           @keyframes floatUp {
             0% { transform: translateY(100vh) translateX(-50px); opacity: 0; }
             20% { opacity: 0.5; }
@@ -27,7 +61,6 @@ export default function Hero({ onContactClick }: HeroProps) {
             100% { transform: translateY(-20vh) translateX(50px); opacity: 0; }
           }
           .animate-jelly { animation: floatUp 15s linear infinite; }
-
           @keyframes typing {
             from { width: 0 }
             to { width: 100% }
@@ -43,14 +76,8 @@ export default function Hero({ onContactClick }: HeroProps) {
 
       {/* --- Animated Background --- */}
       <div className="absolute inset-0 w-full h-full z-0 overflow-hidden">
-        
-        {/* Subtle Cyber Grid */}
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff0a_1px,transparent_1px),linear-gradient(to_bottom,#ffffff0a_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_0%,#000_70%,transparent_100%)]"></div>
-
-        {/* Aurora Blobs */}
         <div className="absolute top-1/4 left-1/4 w-[400px] h-[400px] bg-cyan-500/10 rounded-full mix-blend-screen blur-[120px] animate-blob"></div>
-        
-        {/* Glowing Jellyfish Lights (Increased Opacity for visibility) */}
         <div className="absolute left-[15%] w-[200px] h-[250px] bg-cyan-400/30 rounded-[50%] blur-[60px] animate-jelly"></div>
         <div className="absolute right-[25%] w-[150px] h-[200px] bg-blue-500/30 rounded-[50%] blur-[60px] animate-jelly" style={{ animationDelay: '5s' }}></div>
       </div>
@@ -72,43 +99,31 @@ export default function Hero({ onContactClick }: HeroProps) {
             High-performance digital solutions tailored to your brand, delivered with precision and innovation.
           </p>
 
-          {/* Magnetic Buttons */}
           <div className="flex gap-6 justify-center">
-            <Link 
-              to="/work" 
-              className="px-8 py-4 bg-white text-black font-semibold rounded-full transition-all duration-500 ease-[cubic-bezier(0.175,0.885,0.32,1.275)] hover:scale-110 hover:shadow-[0_0_30px_rgba(255,255,255,0.4)] active:scale-95"
-            >
+            <Link to="/work" className="px-8 py-4 bg-white text-black font-semibold rounded-full transition-all duration-500 ease-[cubic-bezier(0.175,0.885,0.32,1.275)] hover:scale-110 hover:shadow-[0_0_30px_rgba(255,255,255,0.4)] active:scale-95">
               View My Work
             </Link>
-            <button 
-              onClick={onContactClick}
-              className="px-8 py-4 border-2 border-white/20 text-white font-semibold rounded-full transition-all duration-500 ease-[cubic-bezier(0.175,0.885,0.32,1.275)] hover:scale-110 hover:border-cyan-400 hover:shadow-[0_0_30px_rgba(34,211,238,0.4)] active:scale-95"
-            >
+            <button onClick={onContactClick} className="px-8 py-4 border-2 border-white/20 text-white font-semibold rounded-full transition-all duration-500 ease-[cubic-bezier(0.175,0.885,0.32,1.275)] hover:scale-110 hover:border-cyan-400 hover:shadow-[0_0_30px_rgba(34,211,238,0.4)] active:scale-95">
               Get in Touch
             </button>
           </div>
         </div>
 
-        {/* Social Proof Bar */}
+        {/* Social Proof Bar - Dynamic */}
         <div className="absolute bottom-12 w-full flex justify-center items-center gap-6 md:gap-12 text-gray-400 text-sm md:text-base opacity-70">
           <span className="flex items-center gap-2">
-            <span className="text-cyan-400 font-bold">0+</span> Projects Done
+            <span className="text-cyan-400 font-bold">{loading ? "..." : `${projectsCount}+`}</span> Projects Done
           </span>
           <div className="w-[1px] h-4 bg-gray-600"></div>
           <span className="flex items-center gap-2">
-            <span className="text-cyan-400 font-bold">0</span> Client Rating
+            <span className="text-cyan-400 font-bold">{loading ? "..." : avgRating}</span> Client Rating
           </span>
           <div className="w-[1px] h-4 bg-gray-600"></div>
-          <span className="flex items-center gap-2">
-          Clients
-          </span>
+          <span className="flex items-center gap-2">Clients</span>
         </div>
       </div>
       
-      <button
-        onClick={() => document.querySelector('#services')?.scrollIntoView({ behavior: 'smooth' })}
-        className="absolute bottom-4 left-1/2 -translate-x-1/2 text-white/50 hover:text-cyan-400 transition-colors animate-bounce z-30"
-      >
+      <button onClick={() => document.querySelector('#services')?.scrollIntoView({ behavior: 'smooth' })} className="absolute bottom-4 left-1/2 -translate-x-1/2 text-white/50 hover:text-cyan-400 transition-colors animate-bounce z-30">
         <ChevronDown size={32} />
       </button>
     </section>
