@@ -11,24 +11,30 @@ export default function ContactModal({ isOpen, onClose }) {
     setLoading(true);
 
     try {
-      // ১. Supabase Edge Function কল করা (ইমেইল পাঠানোর জন্য)
-      // মনে রাখবেন: [YOUR-PROJECT-REF] এর জায়গায় আপনার সুপারবেস প্রজেক্টের আইডিটি দিন
-      const response = await fetch('https://cgmhoddnybjufmrkkkyw.supabase.co/functions/v1/send-email', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          to: formData.email, // ক্লায়েন্টকে অটো-রিপ্লাই পাঠানোর জন্য
-          subject: "Thank you for contacting FGGOLE",
-          html: `<p>Hi ${formData.name}, thanks for reaching out! We've received your message.</p>`
-        }),
-      });
-
-      // ২. ডাটাবেসে সেভ করা (আপনার আগের কোড অনুযায়ী)
+      // ১. ডাটাবেসে সেভ করা
       await supabase.from('inquiries').insert([
         { name: formData.name, email: formData.email, message: formData.message }
       ]);
 
-      alert("Successful!");
+      // ২. আপনার কাছে নোটিফিকেশন পাঠানো
+      await supabase.functions.invoke('send-email', {
+        body: {
+          to: 'mirajulhossain143@gmail.com', // আপনার ইমেইল
+          subject: `New Inquiry from ${formData.name}`,
+          html: `<p>Name: ${formData.name}</p><p>Email: ${formData.email}</p><p>Message: ${formData.message}</p>`
+        }
+      });
+
+      // ৩. ক্লায়েন্টকে অটো-রিপ্লাই পাঠানো
+      await supabase.functions.invoke('send-email', {
+        body: {
+          to: formData.email,
+          subject: "Thank you for contacting XGGOLE",
+          html: `<p>Hi ${formData.name}, thanks for reaching out! We've received your message and will get back to you soon.</p>`
+        }
+      });
+
+      alert("Message sent successfully!");
       setFormData({ name: '', email: '', message: '' });
       onClose();
     } catch (err) {
@@ -42,7 +48,6 @@ export default function ContactModal({ isOpen, onClose }) {
   if (!isOpen) return null;
 
   return (
-    // আপনার আগের ডিজাইন অনুযায়ী কোডটি ঠিক আছে...
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4" onClick={onClose}>
       <div className="bg-zinc-900 p-8 rounded-2xl w-full max-w-md border border-zinc-800" onClick={e => e.stopPropagation()}>
         <button onClick={onClose} className="absolute top-4 right-4 text-gray-400 hover:text-white"><X size={24} /></button>
