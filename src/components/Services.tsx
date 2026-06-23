@@ -86,7 +86,7 @@ function ServiceCard({ service, index }: { service: any, index: number }) {
         onClick={handleInquiry}
         className="w-full py-2.5 rounded-xl border border-blue-500/30 bg-blue-500/5 text-white font-medium hover:bg-blue-600 hover:border-blue-500 transition-all duration-300"
       >
-        Inquire Now
+        Get in Touch
       </button>
     </motion.div>
   );
