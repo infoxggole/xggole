@@ -10,7 +10,8 @@ export default function HomePage({ onContactClick }: HomePageProps) {
   return (
     <div>
       <Hero onContactClick={onContactClick} />
-      <Services />
+      {/* এখানে প্রপসটি পাস করে দিন */}
+      <Services onContactClick={onContactClick} />
       <Reviews />
     </div>
   );
