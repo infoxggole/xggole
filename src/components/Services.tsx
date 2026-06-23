@@ -8,19 +8,35 @@ const developmentServices = [
   { icon: Palette, title: 'Corporate Identity Suite', description: 'Complete brand systems that communicate your unique value.' },
 ];
 
+// ১. অ্যানিমেশনের ভেরিয়েন্টস
+const containerVariants = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.15, // কার্ডগুলো একটু বিরতিতে আসবে
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 30, scale: 0.95 }, // কার্ডগুলো একটু নিচে এবং ছোট অবস্থায় থাকবে
+  show: { 
+    opacity: 1, 
+    y: 0, 
+    scale: 1,
+    transition: { type: "spring", stiffness: 100, damping: 15 } // স্মুথ স্প্রিং ইফেক্ট
+  },
+};
+
 export default function Services() {
   return (
     <section id="services" className="py-24 bg-zinc-950">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        {/* Main Header */}
         <div className="text-center mb-16">
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4">
             Our <span className="bg-gradient-to-r from-blue-400 via-white to-blue-200 bg-clip-text text-transparent">Services</span>
           </h2>
-          <p className="text-gray-400 max-w-2xl mx-auto">
-            We provide a comprehensive suite of creative and technical services designed to elevate your brand.
-          </p>
         </div>
 
         <ServiceCategory 
@@ -44,42 +60,41 @@ function ServiceCategory({ title, description, bgImage, services }: { title: str
         <h3 className="text-2xl md:text-3xl font-bold text-white mb-4 border-l-4 border-blue-500 pl-4">{title}</h3>
         <p className="text-gray-300 max-w-3xl mb-10 leading-relaxed">{description}</p>
         
-        <div className={`grid grid-cols-1 ${services.length > 3 ? 'md:grid-cols-2 lg:grid-cols-4' : 'md:grid-cols-3'} gap-6`}>
-          {services.map((service, index) => (
-            <ServiceCard key={service.title} service={service} index={index} />
+        {/* ২. এখানে আমরা containerVariants যুক্ত করেছি */}
+        <motion.div 
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: "-100px" }}
+          className={`grid grid-cols-1 ${services.length > 3 ? 'md:grid-cols-2 lg:grid-cols-4' : 'md:grid-cols-3'} gap-6`}
+        >
+          {services.map((service) => (
+            <ServiceCard key={service.title} service={service} />
           ))}
-        </div>
+        </motion.div>
       </div>
     </div>
   );
 }
 
-function ServiceCard({ service, index }: { service: any, index: number }) {
+function ServiceCard({ service }: { service: any }) {
   const handleInquiry = () => {
     const contactSection = document.getElementById('contact');
     if (contactSection) {
       contactSection.scrollIntoView({ behavior: 'smooth' });
-    } else {
-      alert("Contact section not found!");
     }
   };
 
   return (
+    // ৩. প্রতিটি কার্ডে itemVariants প্রয়োগ করা হয়েছে
     <motion.div 
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-50px" }}
-      transition={{ 
-        type: "spring",
-        stiffness: 100,
-        damping: 15,
-        delay: index * 0.1
-      }}
+      variants={itemVariants}
       whileHover={{ 
         y: -10, 
-        transition: { type: "spring", stiffness: 400, damping: 25 }
+        scale: 1.02, // হোভার করলে সামান্য বড় হবে
+        transition: { type: "spring", stiffness: 400, damping: 25 } 
       }}
-      className="group p-6 rounded-2xl bg-zinc-900/40 border border-zinc-700/50 hover:border-blue-500/50 transition-all duration-300 flex flex-col h-full"
+      className="group p-6 rounded-2xl bg-zinc-900/40 border border-zinc-700/50 hover:border-blue-500/50 transition-colors duration-300 flex flex-col h-full backdrop-blur-md"
     >
       <div className="flex-grow">
         <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-600 to-blue-400 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300 shadow-lg shadow-blue-500/20">
