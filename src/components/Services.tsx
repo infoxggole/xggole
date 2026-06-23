@@ -1,4 +1,5 @@
 import { Code, Smartphone, Globe, Palette } from 'lucide-react';
+import { motion } from 'framer-motion'; // অ্যানিমেশনের জন্য
 
 const developmentServices = [
   { icon: Globe, title: 'Website Development', description: 'Responsive and fast websites with a premium digital presence.' },
@@ -22,10 +23,9 @@ export default function Services() {
           </p>
         </div>
 
-        {/* Digital Development Category */}
         <ServiceCategory 
           title="Digital Development"
-          description="We build robust, scalable, and intuitive digital solutions. From responsive websites to complex web and mobile applications, we turn code into high-performing experiences."
+          description="We build robust, scalable, and intuitive digital solutions."
           bgImage="https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=2000&auto=format&fit=crop"
           services={developmentServices}
         />
@@ -34,25 +34,19 @@ export default function Services() {
   );
 }
 
-// Category Container Component
 function ServiceCategory({ title, description, bgImage, services }: { title: string, description: string, bgImage: string, services: any[] }) {
   return (
     <div className="relative mb-20 rounded-3xl overflow-hidden border border-zinc-800">
-      {/* Background Image with Overlay */}
-      <div 
-        className="absolute inset-0 bg-cover bg-center"
-        style={{ backgroundImage: `url(${bgImage})` }}
-      />
+      <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: `url(${bgImage})` }} />
       <div className="absolute inset-0 bg-black/85 backdrop-blur-sm" />
 
-      {/* Content */}
       <div className="relative p-8 md:p-12">
         <h3 className="text-2xl md:text-3xl font-bold text-white mb-4 border-l-4 border-blue-500 pl-4">{title}</h3>
         <p className="text-gray-300 max-w-3xl mb-10 leading-relaxed">{description}</p>
         
         <div className={`grid grid-cols-1 ${services.length > 3 ? 'md:grid-cols-2 lg:grid-cols-4' : 'md:grid-cols-3'} gap-6`}>
-          {services.map((service) => (
-            <ServiceCard key={service.title} service={service} />
+          {services.map((service, index) => (
+            <ServiceCard key={service.title} service={service} index={index} />
           ))}
         </div>
       </div>
@@ -60,11 +54,26 @@ function ServiceCategory({ title, description, bgImage, services }: { title: str
   );
 }
 
-// Reusable Service Card Component
-function ServiceCard({ service }: { service: any }) {
+function ServiceCard({ service, index }: { service: any, index: number }) {
+  // বাটনের ফাংশন: স্ক্রল করার জন্য
+  const handleInquiry = () => {
+    const contactSection = document.getElementById('contact');
+    if (contactSection) {
+      contactSection.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      alert("Contact section not found!"); // যদি কন্টাক্ট সেকশন না থাকে
+    }
+  };
+
   return (
-    <div className="group p-6 rounded-2xl bg-zinc-900/40 border border-zinc-700/50 hover:border-blue-500/50 transition-all duration-300 flex flex-col h-full">
-      {/* Icon and Content Area */}
+    <motion.div 
+      initial={{ opacity: 0, y: 20 }} // শুরুর অবস্থা
+      whileInView={{ opacity: 1, y: 0 }} // স্ক্রল করে যখন আসবে
+      viewport={{ once: true }} // একবারই অ্যানিমেশন হবে
+      transition={{ duration: 0.5, delay: index * 0.1 }} // প্রতিটি কার্ড একটু দেরি করে আসবে
+      whileHover={{ y: -10 }} // হোভার করলে উপরে উঠবে
+      className="group p-6 rounded-2xl bg-zinc-900/40 border border-zinc-700/50 hover:border-blue-500/50 transition-all duration-300 flex flex-col h-full"
+    >
       <div className="flex-grow">
         <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-600 to-blue-400 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300 shadow-lg shadow-blue-500/20">
           <service.icon className="w-6 h-6 text-white" />
@@ -73,16 +82,12 @@ function ServiceCard({ service }: { service: any }) {
         <p className="text-sm text-gray-400 leading-relaxed mb-6">{service.description}</p>
       </div>
 
-      {/* Inquiry Button */}
       <button 
-        onClick={() => {
-          // এখানে আপনার ইনকয়্যারি লিঙ্কের লজিক বসান
-          console.log(`Inquiry requested for: ${service.title}`);
-        }}
+        onClick={handleInquiry}
         className="w-full py-2.5 rounded-xl border border-blue-500/30 bg-blue-500/5 text-white font-medium hover:bg-blue-600 hover:border-blue-500 transition-all duration-300"
       >
         Inquire Now
       </button>
-    </div>
+    </motion.div>
   );
 }
