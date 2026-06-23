@@ -92,15 +92,15 @@ export default function Hero({ onContactClick }: HeroProps) {
         {/* Social Proof Bar */}
         <div className="absolute bottom-12 w-full flex justify-center items-center gap-6 md:gap-12 text-gray-400 text-sm md:text-base opacity-70">
           <span className="flex items-center gap-2">
-            <span className="text-cyan-400 font-bold">50+</span> Projects Done
+            <span className="text-cyan-400 font-bold">0+</span> Projects Done
           </span>
           <div className="w-[1px] h-4 bg-gray-600"></div>
           <span className="flex items-center gap-2">
-            <span className="text-cyan-400 font-bold">4.9/5</span> Client Rating
+            <span className="text-cyan-400 font-bold">0</span> Client Rating
           </span>
           <div className="w-[1px] h-4 bg-gray-600"></div>
           <span className="flex items-center gap-2">
-            Global Clients
+          Clients
           </span>
         </div>
       </div>
