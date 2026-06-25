@@ -52,7 +52,7 @@ export default function Navbar({ onContactClick }: NavbarProps) {
               x
             </span>
             <span className="text-2xl font-bold text-white tracking-wider">
-              xggole
+              ggole
             </span>
           </Link>
 
