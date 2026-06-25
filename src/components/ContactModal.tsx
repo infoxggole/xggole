@@ -19,7 +19,7 @@ export default function ContactModal({ isOpen, onClose }) {
       // ২. আপনার কাছে নোটিফিকেশন পাঠানো
       await supabase.functions.invoke('send-email', {
         body: {
-          to: 'mirajulhossain143@gmail.com', // আপনার ইমেইল
+          to: 'xggole.info@gmail.com', // আপনার ইমেইল
           subject: `New Inquiry from ${formData.name}`,
           html: `<p>Name: ${formData.name}</p><p>Email: ${formData.email}</p><p>Message: ${formData.message}</p>`
         }
