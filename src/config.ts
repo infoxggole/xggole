@@ -21,7 +21,7 @@ export const PROJECTS = [
   {
     id: 2,
     title: 'Corporate Identity Suite',
-    videoId: 'BMUSRWhBy4Q',
+    videoId: 'dQw4w9WgXcQ',
     thumbnail: 'https://images.unsplash.com/photo-1557200134-90327ee9fafa?q=80&w=800&auto=format&fit=crop',
     tools: ['Adobe Illustrator', 'Indesign', 'Brand Strategy', 'Typography'],
     overview: 'A complete corporate identity design including logo, business cards, stationery, and brand guidelines. The suite establishes a cohesive visual language that communicates professionalism and innovation.',
@@ -29,7 +29,7 @@ export const PROJECTS = [
   {
     id: 3,
     title: 'Mobile App Design',
-    videoId: 'BMUSRWhBy4Q',
+    videoId: 'dQw4w9WgXcQ',
     thumbnail: 'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?q=80&w=800&auto=format&fit=crop',
     tools: ['Figma', 'Principle', 'Lottie', 'Swift UI'],
     overview: 'A modern mobile app design focused on user engagement and retention. We created an intuitive interface with micro-interactions that delight users while maintaining clean usability.',
