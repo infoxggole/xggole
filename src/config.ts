@@ -21,7 +21,7 @@ export const PROJECTS = [
   {
     id: 2,
     title: 'Corporate Identity Suite',
-    videoId: 'dQw4w9WgXcQ',
+    videoId: 'https://youtube.com/shorts/zaetW-f2SXI?si=h56uf0bsivebbhMv',
     thumbnail: 'https://images.unsplash.com/photo-1557200134-90327ee9fafa?q=80&w=800&auto=format&fit=crop',
     tools: ['Adobe Illustrator', 'Indesign', 'Brand Strategy', 'Typography'],
     overview: 'A complete corporate identity design including logo, business cards, stationery, and brand guidelines. The suite establishes a cohesive visual language that communicates professionalism and innovation.',
