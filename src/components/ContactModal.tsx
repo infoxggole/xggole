@@ -11,22 +11,26 @@ export default function ContactModal({ isOpen, onClose }) {
     setLoading(true);
 
     try {
-      // ১. ডাটাবেসে সেভ করা
-      await supabase.from('inquiries').insert([
+      // ১. ডাটাবেসে সেভ করা এবং এরর চেক করা
+      const { error: dbError } = await supabase.from('inquiries').insert([
         { name: formData.name, email: formData.email, message: formData.message }
       ]);
 
-      // ২. আপনার কাছে নোটিফিকেশন পাঠানো
-      await supabase.functions.invoke('send-email', {
+      if (dbError) throw new Error("Database Error: " + dbError.message);
+
+      // ২. আপনার কাছে নোটিফিকেশন পাঠানো এবং এরর চেক করা
+      const { error: emailError } = await supabase.functions.invoke('send-email', {
         body: {
-          to: 'xggole.info@gmail.com', // আপনার ইমেইল
+          to: 'xggole.info@gmail.com', // আপনার কোম্পানির ইমেইল
           subject: `New Inquiry from ${formData.name}`,
           html: `<p>Name: ${formData.name}</p><p>Email: ${formData.email}</p><p>Message: ${formData.message}</p>`
         }
       });
 
+      if (emailError) throw new Error("Email Error: " + emailError.message);
+
       // ৩. ক্লায়েন্টকে অটো-রিপ্লাই পাঠানো
-      await supabase.functions.invoke('send-email', {
+      const { error: replyError } = await supabase.functions.invoke('send-email', {
         body: {
           to: formData.email,
           subject: "Thank you for contacting XGGOLE",
@@ -34,12 +38,15 @@ export default function ContactModal({ isOpen, onClose }) {
         }
       });
 
+      if (replyError) throw new Error("Reply Email Error: " + replyError.message);
+
       alert("Message sent successfully!");
       setFormData({ name: '', email: '', message: '' });
       onClose();
     } catch (err) {
       console.error("Error:", err);
-      alert("Something went wrong. Please try again.");
+      // এবার কোনো সমস্যা হলে "সাকসেস" না দেখিয়ে আসল এরর মেসেজটা স্ক্রিনে দেখাবে
+      alert(err.message); 
     } finally {
       setLoading(false);
     }
