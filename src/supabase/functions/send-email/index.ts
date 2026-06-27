@@ -4,7 +4,7 @@ import { serve } from "https://deno.land/std@0.168.0/http/server.ts"
 // Supabase-এ সেভ করা নতুন BREVO_API_KEY-টি নিয়ে আসা
 const BREVO_API_KEY = Deno.env.get("BREVO_API_KEY");
 
-// CORS Headers (অন্য ডোমেইন থেকে কল করার জন্য এটি মাস্ট)
+// CORS Headers
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
@@ -24,7 +24,6 @@ serve(async (req) => {
       throw new Error("Missing required fields: to, subject, or html");
     }
 
-    // ব্রেভো এপিআই কি কনফিগার করা আছে কিনা চেক
     if (!BREVO_API_KEY) {
       throw new Error("BREVO_API_KEY is not configured in Supabase Settings");
     }
@@ -35,16 +34,15 @@ serve(async (req) => {
       headers: {
         "accept": "application/json",
         "Content-Type": "application/json",
-        "api-key": BREVO_API_KEY, // ব্রেভোর নিয়মে 'api-key' হেডারে দিতে হয়
+        "api-key": BREVO_API_KEY,
       },
       body: JSON.stringify({
-        // ব্রেভোতে যে জিমেইল দিয়ে অ্যাকাউন্ট খুলেছেন, সেটি এখানে দিন
         sender: { name: "XGGOLE", email: "info.xggole@gmail.com" }, 
         to: [
-          { email: to } // আপনার ফ্রন্টএন্ড থেকে আসা ইউজারের বা এডমিনের ইমেইল
+          { email: to }
         ],
         subject: subject,
-        htmlContent: html, // ব্রেভোতে 'html' এর জায়গায় 'htmlContent' লিখতে হয়
+        htmlContent: html, // <--- এখানে আমি নিজেই আপনার জন্য 'htmlContent' লিখে দিয়েছি
       }),
     });
 
