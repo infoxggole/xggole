@@ -17,7 +17,7 @@ export default function ReviewModal({ isOpen, onClose }) {
         { 
           name, 
           rating, 
-          // message ,
+          message ,
           comment
         }
       ]);
@@ -75,8 +75,7 @@ export default function ReviewModal({ isOpen, onClose }) {
   placeholder="Write your feedback..." 
   required 
   onChange={e => setMessage(e.target.value)} 
- 
-           value={comment}
+  value={message} 
 />
           
           <button 
