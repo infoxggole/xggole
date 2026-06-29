@@ -19,7 +19,7 @@ export default function ContactModal({ isOpen, onClose }) {
       if (dbError) throw new Error("Database Error: " + dbError.message);
 
       // ২. আপনার কাছে নোটিফিকেশন পাঠানো এবং এরর চেক করা
-      const { error: emailError } = await supabase.functions.invoke('send-email', {...})
+      const { error: emailError } = await supabase.functions.invoke('send-email', {
         body: {
           to: 'xggole.info@gmail.com', // আপনার কোম্পানির ইমেইল
           subject: `New Inquiry from ${formData.name}`,
@@ -30,7 +30,7 @@ export default function ContactModal({ isOpen, onClose }) {
       if (emailError) throw new Error("Email Error: " + emailError.message);
 
       // ৩. ক্লায়েন্টকে অটো-রিপ্লাই পাঠানো
-      const { error: replyError } = await supabase.functions.invoke('send-email', {...})
+      const { error: replyError } = await supabase.functions.invoke('send-email', {
         body: {
           to: formData.email,
           subject: "Thank you for contacting XGGOLE",
