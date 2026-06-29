@@ -18,8 +18,8 @@ export default function ContactModal({ isOpen, onClose }) {
 
       if (dbError) throw new Error("Database Error: " + dbError.message);
 
-      // ২. আপনার কাছে নোটিফিকেশন পাঠানো এবং এরর চেক করা (এখানে quick-worker দেওয়া হলো)
-      const { error: emailError } = await supabase.functions.invoke('quick-worker', {
+      // ২. আপনার কাছে নোটিফিকেশন পাঠানো এবং এরর চেক করা
+      const { error: emailError } = await supabase.functions.invoke('send-email', {
         body: {
           to: 'xggole.info@gmail.com', // আপনার কোম্পানির ইমেইল
           subject: `New Inquiry from ${formData.name}`,
@@ -29,11 +29,11 @@ export default function ContactModal({ isOpen, onClose }) {
 
       if (emailError) throw new Error("Email Error: " + emailError.message);
 
-      // ৩. ক্লায়েন্টকে অটো-রিপ্লাই পাঠানো (এখানেও quick-worker দেওয়া হলো)
-      const { error: replyError } = await supabase.functions.invoke('quick-worker', {
+      // ৩. ক্লায়েন্টকে অটো-রিপ্লাই পাঠানো
+      const { error: replyError } = await supabase.functions.invoke('send-email', {
         body: {
           to: formData.email,
-          subject: "Thank you for contacting FGGOLE", 
+          subject: "Thank you for contacting XGGOLE",
           html: `<p>Hi ${formData.name}, thanks for reaching out! We've received your message and will get back to you soon.</p>`
         }
       });
@@ -45,7 +45,7 @@ export default function ContactModal({ isOpen, onClose }) {
       onClose();
     } catch (err) {
       console.error("Error:", err);
-      // এবার কোনো সমস্যা হলে "সাকসেস" না দেখিয়ে আসল এরর মেসেজটা স্ক্রিনে দেখাবে
+      // এবার কোনো সমস্যা হলে "সাকসেস" না দেখিয়ে আসল এরর মেসেজটা স্ক্রিনে দেখাবে
       alert(err.message); 
     } finally {
       setLoading(false);
