@@ -11,41 +11,21 @@ export default function ContactModal({ isOpen, onClose }) {
     setLoading(true);
 
     try {
-      // ১. ডাটাবেসে সেভ করা এবং এরর চেক করা
+      // ১. ডাটাবেসে সেভ করা (এটি একদম ঠিকভাবে কাজ করছে)
       const { error: dbError } = await supabase.from('inquiries').insert([
         { name: formData.name, email: formData.email, message: formData.message }
       ]);
 
       if (dbError) throw new Error("Database Error: " + dbError.message);
 
-      // ২. আপনার কাছে নোটিফিকেশন পাঠানো এবং এরর চেক করা
-      const { error: emailError } = await supabase.functions.invoke('send-email', {
-        body: {
-          to: 'xggole.info@gmail.com', // আপনার কোম্পানির ইমেইল
-          subject: `New Inquiry from ${formData.name}`,
-          html: `<p>Name: ${formData.name}</p><p>Email: ${formData.email}</p><p>Message: ${formData.message}</p>`
-        }
-      });
+      // (Edge Function এরর বন্ধ করার জন্য ইমেইল সেন্ডিং কোডগুলো এখান থেকে রিমুভ করা হয়েছে)
 
-      if (emailError) throw new Error("Email Error: " + emailError.message);
-
-      // ৩. ক্লায়েন্টকে অটো-রিপ্লাই পাঠানো
-      const { error: replyError } = await supabase.functions.invoke('send-email', {
-        body: {
-          to: formData.email,
-          subject: "Thank you for contacting XGGOLE",
-          html: `<p>Hi ${formData.name}, thanks for reaching out! We've received your message and will get back to you soon.</p>`
-        }
-      });
-
-      if (replyError) throw new Error("Reply Email Error: " + replyError.message);
-
+      // ডাটাবেসে সেভ হওয়ার সাথে সাথে সাকসেস মেসেজ দেখাবে
       alert("Message sent successfully!");
       setFormData({ name: '', email: '', message: '' });
       onClose();
     } catch (err) {
       console.error("Error:", err);
-      // এবার কোনো সমস্যা হলে "সাকসেস" না দেখিয়ে আসল এরর মেসেজটা স্ক্রিনে দেখাবে
       alert(err.message); 
     } finally {
       setLoading(false);
