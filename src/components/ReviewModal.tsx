@@ -18,7 +18,6 @@ export default function ReviewModal({ isOpen, onClose }) {
           name, 
           rating, 
           message ,
-          comment
         }
       ]);
 
