@@ -23,7 +23,7 @@ export default function Hero({ onContactClick }: HeroProps) {
 
         // ২. ক্লায়েন্ট রেটিং বা রিভিউয়ের গড় বের করা
         const { data: reviews } = await supabase
-          .from('review') // এখানে আপনার রিভিউ টেবিলের নাম দিন
+          .from('public.review') // এখানে আপনার রিভিউ টেবিলের নাম দিন
           .select('rating');
 
         if (projCount) setProjectsCount(projCount);
