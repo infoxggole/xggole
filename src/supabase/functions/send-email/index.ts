@@ -29,7 +29,7 @@ serve(async (req) => {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        from: "xggole.info@gmail.com",
+        from: "onboarding@resend.dev",
         to: [to],
         subject: subject,
         html: html,
