@@ -20,7 +20,7 @@ const handleSubmit = async (e) => {
     if (dbError) throw new Error(dbError.message);
 
     // Step 2: Trigger email via Edge Function
-    const { data: emailData, error: emailError } = await supabase.functions.invoke('send-email', {
+    const { data: emailData, error: emailError } = await supabase.functions.invoke('quick-worker', {
       body: {
         to: 'your-receiving-email@yourdomain.com', // where YOU want to receive inquiries
         subject: `New Inquiry: ${formData.subject}`,
