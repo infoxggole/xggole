@@ -22,7 +22,7 @@ const handleSubmit = async (e) => {
     // Step 2: Trigger email via Edge Function
     const { data: emailData, error: emailError } = await supabase.functions.invoke('quick-worker', {
       body: {
-        to: 'your-receiving-email@yourdomain.com', // where YOU want to receive inquiries
+        to: 'xggole.info@gmail.com', // where YOU want to receive inquiries
         subject: `New Inquiry: ${formData.subject}`,
         html: `<p><strong>Name:</strong> ${formData.name}</p>
                <p><strong>Email:</strong> ${formData.email}</p>
