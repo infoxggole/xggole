@@ -29,7 +29,7 @@ serve(async (req) => {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        from: "Your Site <onboarding@resend.dev>", // use resend.dev for testing, your verified domain later
+        from: "Your Site <onboarding@resend.dev>",
         to: [to],
         subject: subject,
         html: html,
