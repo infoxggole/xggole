@@ -38,7 +38,7 @@ serve(async (req) => {
       },
       body: JSON.stringify({
         sender: { 
-          name: "FGGOLE", 
+          name: "XGGOLE", 
           email: "xggole.info@gmail.com" // ⚠️ এখানে আপনার Brevo-তে ভেরিফাই করা ইমেইলটি দিন
         },
         to: [{ email: to }],
