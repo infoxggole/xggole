@@ -1,32 +1,45 @@
+import { supabase } from '../lib/supabaseClient'; // adjust path to wherever your supabase client is set up
+
 const handleSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true);
+  e.preventDefault();
+  setLoading(true);
 
-    const formPayload = new FormData();
-    formPayload.append("access_key", "6c2c4584-ab0b-443d-9ebc-5700db2e8a80");
-    formPayload.append("name", formData.name);
-    formPayload.append("email", formData.email);
-    formPayload.append("message", formData.message);
+  try {
+    // Step 1: Save to Supabase
+    const { data, error: dbError } = await supabase
+      .from('inquiries')
+      .insert([
+        {
+          name: formData.name,
+          email: formData.email,
+          subject: formData.subject,
+          message: formData.message,
+        }
+      ]);
 
-    try {
-      const response = await fetch("https://api.web3forms.com/submit", {
-        method: "POST",
-        body: formPayload,
-      });
+    if (dbError) throw new Error(dbError.message);
 
-      const result = await response.json();
-      console.log("Web3Forms Response:", result); // কনসোলে ফলাফল দেখুন
+    // Step 2: Trigger email via Edge Function
+    const { data: emailData, error: emailError } = await supabase.functions.invoke('send-email', {
+      body: {
+        to: 'your-receiving-email@yourdomain.com', // where YOU want to receive inquiries
+        subject: `New Inquiry: ${formData.subject}`,
+        html: `<p><strong>Name:</strong> ${formData.name}</p>
+               <p><strong>Email:</strong> ${formData.email}</p>
+               <p><strong>Message:</strong> ${formData.message}</p>`,
+      },
+    });
 
-      if (result.success) {
-        alert("ইমেইল সফলভাবে পাঠানো হয়েছে!");
-        setFormData({ name: '', email: '', message: '' });
-        onClose();
-      } else {
-        alert("Error: " + result.message);
-      }
-    } catch (err) {
-      alert("System Error: " + err.message);
-    } finally {
-      setLoading(false);
-    }
-  };
+    if (emailError) throw new Error(emailError.message);
+
+    alert("Message sent successfully!");
+    setFormData({ name: '', email: '', subject: '', message: '' });
+    onClose();
+
+  } catch (err) {
+    alert("Error: " + err.message);
+    console.error(err);
+  } finally {
+    setLoading(false);
+  }
+};
