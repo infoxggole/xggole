@@ -16,7 +16,7 @@ export default function Logo({ className = '', asLink = true }: LogoProps) {
       >
         X
       </motion.span>
-      <span className="text-lg sm:text-xl text-xggole-medium ml-0.5">GGOLE</span>
+      <span className="text-lg sm:text-xl text-xggole-medium ml-2">GGOLE</span>
     </span>
   );
 
