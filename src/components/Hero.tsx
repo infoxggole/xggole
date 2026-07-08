@@ -100,7 +100,7 @@ export default function Hero({ onContactClick }: HeroProps) {
 </h2>
 
 <p className="text-gray-300 text-lg md:text-xl mb-12 max-w-2xl mx-auto">
-  Transform your business with intelligent digital solutions. At FGGOLE, we combine advanced AI technology with premium Web/App development and complete Corporate Identity Suites to build the future of your brand.
+  Transform your business with intelligent digital solutions. At XGGOLE, we combine advanced AI technology with premium Web/App development and complete Corporate Identity Suites to build the future of your brand.
 </p>
           <div className="flex gap-6 justify-center">
             <Link to="/work" className="px-8 py-4 bg-white text-black font-semibold rounded-full transition-all duration-500 ease-[cubic-bezier(0.175,0.885,0.32,1.275)] hover:scale-110 hover:shadow-[0_0_30px_rgba(255,255,255,0.4)] active:scale-95">
