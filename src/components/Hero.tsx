@@ -95,10 +95,13 @@ export default function Hero({ onContactClick }: HeroProps) {
             </span>
           </h1>
           
-          <p className="text-gray-300 text-lg md:text-xl mb-12 max-w-2xl mx-auto">
-            High-performance digital solutions tailored to your brand, delivered with precision and innovation.
-          </p>
+         <h2 className="text-2xl md:text-4xl font-bold text-white mb-4 mt-6">
+  AI-Powered Web & Mobile App Development
+</h2>
 
+<p className="text-gray-300 text-lg md:text-xl mb-12 max-w-2xl mx-auto">
+  Transform your business with intelligent digital solutions. At FGGOLE, we combine advanced AI technology with premium Web/App development and complete Corporate Identity Suites to build the future of your brand.
+</p>
           <div className="flex gap-6 justify-center">
             <Link to="/work" className="px-8 py-4 bg-white text-black font-semibold rounded-full transition-all duration-500 ease-[cubic-bezier(0.175,0.885,0.32,1.275)] hover:scale-110 hover:shadow-[0_0_30px_rgba(255,255,255,0.4)] active:scale-95">
               View My Work
