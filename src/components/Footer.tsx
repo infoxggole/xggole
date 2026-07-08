@@ -7,10 +7,14 @@ export default function Footer() {
         
         {/* Brand Column */}
         <div className="space-y-4">
-          <h3 className="text-2xl font-bold text-white">xggole</h3>
-          <p className="text-gray-400 text-sm leading-relaxed max-w-xs mx-auto md:mx-0">
-            Next-gen agency specializing in Cinematic Brand Stories, AI-driven video production, and premium Web/App development.
-          </p>
+        <h3 className="text-2xl font-bold text-white">XGGOLE</h3>
+<p className="text-lg md:text-xl font-semibold text-cyan-400 mb-2 mt-4 tracking-wide">
+  AI-Powered Web & Mobile App Development
+</p>
+
+<p className="text-gray-400 text-sm md:text-base mb-6 leading-relaxed">
+  Empower your business with intelligent digital solutions. At XGGOLE, we combine advanced AI technology with premium Web/App development and complete Corporate Identity Suites to build the future of your brand.
+</p>
         </div>
 
         {/* Quick Links Column */}
