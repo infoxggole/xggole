@@ -1,11 +1,11 @@
 export default function Footer() {
   return (
     <footer className="bg-zinc-950 border-t border-zinc-900 pt-16 pb-8">
-      {/* Footer Grid - 4 Columns */}
+      {/* Footer Grid - 3 Columns now, with the first taking up half the space */}
       <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 text-center md:text-left">
         
-        {/* 1. Brand Column */}
-        <div className="space-y-4">
+        {/* 1. Brand Column (Takes up 2 columns of space for better readability) */}
+        <div className="space-y-4 lg:col-span-2 lg:pr-12">
           <h3 className="text-3xl font-bold tracking-wider text-white">XGGOLE</h3>
           <p className="text-base font-medium text-cyan-400">
             AI-Powered Web & Mobile App Development
@@ -15,18 +15,7 @@ export default function Footer() {
           </p>
         </div>
 
-        {/* 2. Quick Links Column */}
-        <div className="space-y-4">
-          <h4 className="text-lg font-semibold text-white">Quick Links</h4>
-          <ul className="space-y-3 text-gray-400">
-            <li><a href="#home" className="hover:text-blue-400 transition-colors">Home</a></li>
-            <li><a href="#services" className="hover:text-blue-400 transition-colors">Services</a></li>
-            <li><a href="#work" className="hover:text-blue-400 transition-colors">Our Work</a></li>
-            <li><a href="#reviews" className="hover:text-blue-400 transition-colors">Reviews</a></li>
-          </ul>
-        </div>
-
-        {/* 3. Contact Us Column */}
+        {/* 2. Contact Us Column */}
         <div className="space-y-4">
           <h4 className="text-lg font-semibold text-white">Contact Us</h4>
           <ul className="space-y-3 text-gray-400 text-sm">
@@ -45,7 +34,7 @@ export default function Footer() {
           </ul>
         </div>
 
-        {/* 4. Follow Us Column */}
+        {/* 3. Follow Us Column */}
         <div className="space-y-4">
           <h4 className="text-lg font-semibold text-white">Follow Us</h4>
           <div className="flex flex-col items-center md:items-start space-y-3 pt-1">
