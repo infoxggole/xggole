@@ -1,0 +1,41 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-white text-xggole-navy antialiased font-sans;
+  }
+
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-xggole-light;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-xggole-blue/40 rounded-full;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-xggole-medium;
+  }
+}
+
+@layer utilities {
+  .text-gradient {
+    @apply bg-gradient-to-r from-xggole-medium via-xggole-blue to-xggole-deep bg-clip-text text-transparent;
+  }
+
+  .card-stroke {
+    @apply border-2 border-xggole-blue/20 bg-white/80 backdrop-blur-sm;
+  }
+}
