@@ -46,11 +46,12 @@ export default function Navbar({ onContactClick }: NavbarProps) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           
-          {/* লোগো: এখানে সবকিছু বড় হাতের এবং স্থির রাখা হয়েছে */}
+          {/* আপডেট করা লোগো: X লাফাবে (bounce) এবং GGOLE স্থির থাকবে */}
           <Link to="/" className="flex-shrink-0 flex items-center">
-            <span className="text-2xl font-bold text-white tracking-widest uppercase">
-              XGGOLE
-            </span>
+            <div className="flex items-center text-white font-bold tracking-widest uppercase">
+              <span className="animate-bounce text-4xl inline-block mr-3">X</span>
+              <span className="text-2xl">GGOLE</span>
+            </div>
           </Link>
 
           {/* Desktop Navigation */}
