@@ -21,7 +21,7 @@ export default function Navbar({ onContactClick }: NavbarProps) {
 
   const navLinks = [
     { name: 'Services', href: '/#services' },
-    { name: 'View My Work', href: '/work' },
+    { name: 'My Development Workflow', href: '/work' },
     { name: 'Reviews', href: '/#reviews' },
   ];
 
