@@ -21,7 +21,7 @@ export default function Navbar({ onContactClick }: NavbarProps) {
 
   const navLinks = [
     { name: 'Services', href: '/#services' },
-    { name: 'View My Work', href: '/work' },
+    { name: 'My Development Workflow', href: '/work' },
     { name: 'Reviews', href: '/#reviews' },
   ];
 
@@ -49,7 +49,7 @@ export default function Navbar({ onContactClick }: NavbarProps) {
           {/* আপডেট করা লোগো: X লাফাবে (bounce) এবং GGOLE স্থির থাকবে */}
           <Link to="/" className="flex-shrink-0 flex items-center">
             <div className="flex items-center text-white font-bold tracking-widest uppercase">
-              <span className="animate-bounce text-4xl inline-block mr-3">X</span>
+              <span className="animate-bounce text-4xl inline-block mr-2">X</span>
               <span className="text-2xl">GGOLE</span>
             </div>
           </Link>
