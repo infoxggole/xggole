@@ -1,100 +1,101 @@
+"use client";
+import { useState } from 'react';
+import { motion } from 'framer-motion';
+
+function ButterflyBackground() {
+  return (
+    <div className="fixed inset-0 z-0 pointer-events-none opacity-30">
+      <div className="absolute inset-0 bg-blue-900/10 blur-[150px]"></div>
+      <motion.div 
+        animate={{ rotateY: [0, 60, 0], scale: [0.8, 1, 0.8] }}
+        transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute top-1/4 left-1/4 text-blue-300 text-[150px]"
+      >
+        🦋
+      </motion.div>
+    </div>
+  );
+}
+
+function ContactForm({ onClose }: { onClose: () => void }) {
+  return (
+    <div className="fixed inset-0 bg-black/80 z-[100] flex items-center justify-center p-4">
+      <div className="bg-zinc-900 p-8 rounded-xl border border-zinc-700 max-w-md w-full relative shadow-2xl">
+        <button onClick={onClose} className="absolute top-4 right-4 text-white hover:text-red-400">✕</button>
+        <h3 className="text-xl font-bold mb-6 text-white">Start Your Project</h3>
+        <input className="w-full p-3 mb-4 bg-zinc-800 rounded border border-zinc-700 text-white" placeholder="Name" />
+        <input className="w-full p-3 mb-4 bg-zinc-800 rounded border border-zinc-700 text-white" placeholder="Email" />
+        <textarea className="w-full p-3 mb-4 bg-zinc-800 rounded border border-zinc-700 text-white" placeholder="Project Details" rows={4} />
+        <button className="w-full bg-blue-600 p-3 rounded text-white font-semibold hover:bg-blue-700">Send Message</button>
+      </div>
+    </div>
+  );
+}
+
 export default function WorkPage() {
+  const [showForm, setShowForm] = useState(false);
+
   const works = [
     { 
-      title: "Web App Design", 
+      title: "Web App Development", 
       videoId: "u4OUd3GKjAg", 
-      workflow: "This application was developed using an end-to-end professional tech stack. I utilized ChatGPT and Gemini for complex logic generation, while Cursor served as the AI-native IDE for precision scaffolding. The backend infrastructure is powered by Supabase, with the codebase managed through GitHub for version control and deployed via Cloudflare.",
+      workflow: "My approach to web apps is focused on high performance. I use ChatGPT and Gemini to architect complex logic, combined with Cursor as my AI-native IDE. Data is managed via Supabase, ensuring a secure and scalable foundation, while the entire build is deployed on Cloudflare.",
       tech: ["Full-Stack", "AI-Integrated", "High-Performance"],
-      result: "Optimized for speed and complex user interactions."
+      result: "Optimized for speed, reliability, and security."
     },
     { 
-      title: "Mobile App Design", 
+      title: "Mobile App Development", 
       videoId: "u4OUd3GKjAg", 
-      workflow: "I built this mobile experience by integrating a complete development lifecycle. Cursor and ChatGPT/Gemini were utilized for rapid, high-quality feature development. Supabase acts as the core backend server providing real-time data, while GitHub ensures code integrity through strict version control and Cloudflare provides edge-performance.",
+      workflow: "For mobile experiences, I follow a mobile-first development lifecycle. I leverage AI coding assistants for rapid feature scaffolding, while Supabase provides real-time data synchronization. GitHub acts as my core for version control, ensuring a stable and professional deployment.",
       tech: ["Mobile-First", "Real-time Data", "Secure Auth"],
-      result: "Seamless mobile experience with instant data syncing."
+      result: "Seamless mobile data handling and synchronization."
     },
     { 
-      title: "Website Design", 
+      title: "Website Development", 
       videoId: "u4OUd3GKjAg", 
-      workflow: "This web solution was engineered for scale and performance. The structure was crafted using Cursor and ChatGPT/Gemini. Data operations are handled by Supabase, GitHub serves as the repository for continuous integration, and it integrates Resend for transactional email, all hosted on Cloudflare's global edge network.",
-      tech: ["Scalable", "Edge-Hosted", "Transactional-Ready"],
-      result: "High-uptime architecture with reliable email delivery."
+      workflow: "I focus on crafting responsive and user-centric websites that deliver seamless browsing experiences. By leveraging modern frameworks and clean code practices, I ensure that every site is optimized for performance, SEO, and accessibility across all devices.",
+      tech: ["Responsive Design", "SEO Optimized", "Performance"],
+      result: "A fast, accessible, and visually stunning digital presence."
     },
     { 
-      title: "Corporate Identity", 
+      title: "Corporate Identity Suite", 
       videoId: "u4OUd3GKjAg", 
-      workflow: "For this project, I focused on strategic brand positioning and visual architecture. ChatGPT was applied to conduct audience persona analysis and establish a distinct brand voice. Cursor was leveraged to manage the digital design architecture, ensuring all brand assets remained modular and consistent.",
-      tech: ["Brand Strategy", "Visual Architecture", "Modular Design"],
-      result: "Unified and professional brand presence across all channels."
+      workflow: "I build comprehensive corporate identity suites that create a cohesive visual language. From logotypes to modular digital asset systems, every element is designed to maintain professional consistency across all platforms and touchpoints.",
+      tech: ["Visual Architecture", "Modular Design", "Professional Assets"],
+      result: "Scalable, consistent, and recognizable branding."
     }
   ];
 
   return (
-    <div className="w-full min-h-screen bg-zinc-950 text-white py-16 px-8">
-      <div className="max-w-6xl mx-auto">
+    <div className="w-full min-h-screen bg-zinc-950 text-white relative py-16 px-6">
+      <ButterflyBackground />
+      {showForm && <ContactForm onClose={() => setShowForm(false)} />}
+      
+      <div className="max-w-6xl mx-auto z-10 relative">
+        <h2 className="text-4xl font-bold mb-16 text-center">My Development Workflow</h2>
         
-        <h2 className="text-4xl font-bold mb-20 text-center">See My Work in Action</h2>
-
-        <div className="flex flex-col gap-16">
+        {/* গ্রিড লেআউট: মোবাইলে ১টি, ট্যাবলেটে বা ডেস্কটপে ২টি করে */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {works.map((work, index) => (
-            <div 
-              key={index} 
-              className="bg-zinc-900 p-8 rounded-xl border border-white/10 flex flex-col md:flex-row items-center gap-10 transition-transform duration-300 hover:scale-[1.02]"
-            >
+            <div key={index} className="bg-zinc-900/60 backdrop-blur-md p-6 rounded-xl border border-zinc-800 flex flex-col h-auto hover:border-blue-500/50 transition-all">
+              <div className="w-full h-48 bg-black rounded-lg overflow-hidden mb-6 border border-zinc-700">
+                <iframe className="w-full h-full" src={`https://www.youtube.com/embed/${work.videoId}`} />
+              </div>
               
-              {/* মোবাইল ফ্রেমের ভেতর ভিডিও */}
-              <div className="w-full md:w-1/3 flex justify-center">
-                <div className="relative w-[280px] h-[550px] border-[10px] border-zinc-800 rounded-[40px] overflow-hidden shadow-2xl bg-black">
-                  {/* ফোনের নচ */}
-                  <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-6 bg-zinc-800 rounded-b-2xl z-10"></div>
-                  
-                  {/* ইউটিউব ভিডিও */}
-                  <iframe 
-                    className="w-full h-full object-cover"
-                    src={`https://www.youtube.com/embed/${work.videoId}`}
-                    title={work.title}
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                  ></iframe>
-                </div>
+              <h3 className="text-2xl font-bold mb-2">{work.title}</h3>
+              <p className="text-blue-400 text-sm font-semibold mb-4 italic">{work.result}</p>
+              <p className="text-gray-300 text-base leading-relaxed mb-6 flex-grow">{work.workflow}</p>
+              
+              <div className="flex flex-wrap gap-2 mb-6 mt-auto">
+                {work.tech.map((t, i) => <span key={i} className="px-3 py-1 bg-zinc-800 text-xs rounded-full text-zinc-300 border border-zinc-700">{t}</span>)}
               </div>
 
-              {/* টেক্সট ও বাটন সেকশন */}
-              <div className="w-full md:w-2/3 flex flex-col">
-                <h3 className="text-3xl font-bold mb-2 text-white">{work.title}</h3>
-                <p className="text-blue-400 font-semibold mb-4 text-sm">{work.result}</p>
-                <p className="text-sm text-gray-300 leading-relaxed mb-6">
-                  {work.workflow}
-                </p>
-
-                <div className="flex gap-2 mb-6 flex-wrap">
-                  {work.tech.map((t, i) => (
-                    <span key={i} className="px-3 py-1 bg-zinc-800 rounded-full text-xs border border-zinc-700">
-                      {t}
-                    </span>
-                  ))}
-                </div>
-
-                <div className="flex gap-4">
-                  <button 
-                    onClick={() => window.location.href = 'mailto:xggole.info@gmail.com'}
-                    className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-medium transition-all"
-                  >
-                    Start Your Project
-                  </button>
-                  <button 
-                    onClick={() => alert('Case study page coming soon!')}
-                    className="border border-zinc-600 hover:bg-zinc-800 text-white px-6 py-2 rounded-lg font-medium transition-all"
-                  >
-                    View Case Study
-                  </button>
-                </div>
+              <div className="flex gap-4">
+                <button onClick={() => setShowForm(true)} className="flex-1 bg-blue-600 py-3 rounded-lg font-semibold hover:bg-blue-700 transition">Start Collaboration</button>
               </div>
             </div>
           ))}
         </div>
-        
       </div>
     </div>
   );
