@@ -1,31 +1,26 @@
 "use client";
+import React from 'react';
 import { motion } from 'framer-motion';
 
-// সফট গ্লোয়িং উইং এনিমেশন
+// গ্লোয়িং উইং এনিমেশন
 function Wings() {
   return (
     <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden">
-      {/* বাম দিকের উইং */}
       <motion.div 
-        animate={{ opacity: [0.2, 0.4, 0.2], scale: [1, 1.05, 1] }}
-        transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute top-1/3 -left-32 w-80 h-96 bg-blue-600/15 blur-[120px] rounded-full"
+        animate={{ opacity: [0.2, 0.5, 0.2], scale: [1, 1.05, 1] }}
+        transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute top-1/4 -left-32 w-80 h-96 bg-blue-600/15 blur-[120px] rounded-full"
       />
-      {/* ডান দিকের উইং */}
       <motion.div 
-        animate={{ opacity: [0.2, 0.4, 0.2], scale: [1, 1.05, 1] }}
-        transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute top-1/3 -right-32 w-80 h-96 bg-blue-600/15 blur-[120px] rounded-full"
+        animate={{ opacity: [0.2, 0.5, 0.2], scale: [1, 1.05, 1] }}
+        transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute top-1/4 -right-32 w-80 h-96 bg-blue-600/15 blur-[120px] rounded-full"
       />
     </div>
   );
 }
 
 export default function WorkPage() {
-  const handleEmailClick = () => {
-    window.location.href = "mailto:miraj@yourdomain.com?subject=Collaboration Request";
-  };
-
   const works = [
     { 
       title: "Web App Development", 
@@ -57,43 +52,45 @@ export default function WorkPage() {
     }
   ];
 
+  const margins = ["ml-10", "ml-24", "ml-10", "ml-24"];
+
   return (
-    <div className="w-full min-h-screen bg-black text-white relative py-20 px-6">
+    <div className="w-full h-screen bg-black text-white px-4 py-2 overflow-hidden flex flex-col justify-center">
       <Wings />
       
-      {/* সেন্ট্রাল কন্টেইনার (এখানেই সব গ্রিড থাকবে) */}
-      <main className="max-w-4xl mx-auto z-10 relative">
-        <h2 className="text-2xl font-light text-center tracking-widest text-zinc-400 uppercase mb-16">Development Workflow</h2>
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {works.map((work, index) => (
-            <div key={index} className="bg-zinc-900/40 p-5 border border-white/5 hover:border-blue-500/20 transition-all duration-300 flex flex-col">
-              <div className="w-full h-32 bg-black border border-white/5 mb-4 overflow-hidden">
-                <iframe className="w-full h-full" src={`https://www.youtube.com/embed/${work.videoId}`} />
-              </div>
+      <h2 className="text-xl font-light text-center tracking-widest text-zinc-400 uppercase mb-4 relative z-10">Development Workflow</h2>
+      
+      <div className="flex flex-col h-full gap-3 relative z-10 justify-center">
+        {works.map((work, index) => (
+          <motion.div 
+            key={index} 
+            initial={{ x: -30, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            transition={{ duration: 0.6, delay: index * 0.15 }}
+            className={`flex flex-row items-center gap-4 bg-zinc-900/40 border border-white/5 hover:border-blue-500/30 transition-all ${margins[index % 4]} h-[19vh]`}
+          >
+            {/* ভিডিও সাইড */}
+            <div className="w-1/4 h-full bg-black overflow-hidden border-r border-white/5 flex-shrink-0">
+              <iframe className="w-full h-full" src={`https://www.youtube.com/embed/${work.videoId}`} />
+            </div>
+            
+            {/* টেক্সট সাইড - এখানে পুরো ডেসক্রিপশন আছে */}
+            <div className="w-3/4 p-3 flex flex-col justify-center overflow-hidden">
+              <h3 className="text-sm font-medium text-white mb-0.5">{work.title}</h3>
+              <p className="text-blue-400/80 text-[9px] uppercase tracking-wider italic mb-1">{work.result}</p>
+              <p className="text-zinc-400 text-[10px] leading-tight mb-2 pr-4">{work.workflow}</p>
               
-              <h3 className="text-sm font-medium mb-1">{work.title}</h3>
-              <p className="text-blue-500/70 text-[10px] uppercase tracking-wider mb-3 italic">{work.result}</p>
-              <p className="text-zinc-500 text-xs leading-relaxed mb-4 flex-grow">{work.workflow}</p>
-              
-              <div className="flex flex-wrap gap-1.5 mb-4 mt-auto">
+              <div className="flex flex-wrap gap-1">
                 {work.tech.map((t, i) => (
-                  <span key={i} className="px-2 py-0.5 bg-white/5 text-[9px] uppercase tracking-wider text-zinc-600 border border-white/5">
+                  <span key={i} className="px-1.5 py-0 bg-white/5 text-[8px] uppercase tracking-wider text-zinc-600 border border-white/5">
                     {t}
                   </span>
                 ))}
               </div>
-
-              <button 
-                onClick={handleEmailClick}
-                className="w-full border border-white/10 py-2 text-[10px] uppercase tracking-widest hover:bg-white/5 transition-all text-zinc-400"
-              >
-                Start Collaboration
-              </button>
             </div>
-          ))}
-        </div>
-      </main>
+          </motion.div>
+        ))}
+      </div>
     </div>
   );
 }
