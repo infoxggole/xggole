@@ -1,39 +1,30 @@
 "use client";
-import { useState } from 'react';
 import { motion } from 'framer-motion';
 
-function ButterflyBackground() {
+// সফট গ্লোয়িং উইং এনিমেশন
+function Wings() {
   return (
-    <div className="fixed inset-0 z-0 pointer-events-none opacity-30">
-      <div className="absolute inset-0 bg-blue-900/10 blur-[150px]"></div>
+    <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden">
+      {/* বাম দিকের উইং */}
       <motion.div 
-        animate={{ rotateY: [0, 60, 0], scale: [0.8, 1, 0.8] }}
-        transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute top-1/4 left-1/4 text-blue-300 text-[150px]"
-      >
-        🦋
-      </motion.div>
-    </div>
-  );
-}
-
-function ContactForm({ onClose }: { onClose: () => void }) {
-  return (
-    <div className="fixed inset-0 bg-black/80 z-[100] flex items-center justify-center p-4">
-      <div className="bg-zinc-900 p-8 rounded-xl border border-zinc-700 max-w-md w-full relative shadow-2xl">
-        <button onClick={onClose} className="absolute top-4 right-4 text-white hover:text-red-400">✕</button>
-        <h3 className="text-xl font-bold mb-6 text-white">Start Your Project</h3>
-        <input className="w-full p-3 mb-4 bg-zinc-800 rounded border border-zinc-700 text-white" placeholder="Name" />
-        <input className="w-full p-3 mb-4 bg-zinc-800 rounded border border-zinc-700 text-white" placeholder="Email" />
-        <textarea className="w-full p-3 mb-4 bg-zinc-800 rounded border border-zinc-700 text-white" placeholder="Project Details" rows={4} />
-        <button className="w-full bg-blue-600 p-3 rounded text-white font-semibold hover:bg-blue-700">Send Message</button>
-      </div>
+        animate={{ opacity: [0.2, 0.4, 0.2], scale: [1, 1.05, 1] }}
+        transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute top-1/3 -left-32 w-80 h-96 bg-blue-600/15 blur-[120px] rounded-full"
+      />
+      {/* ডান দিকের উইং */}
+      <motion.div 
+        animate={{ opacity: [0.2, 0.4, 0.2], scale: [1, 1.05, 1] }}
+        transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute top-1/3 -right-32 w-80 h-96 bg-blue-600/15 blur-[120px] rounded-full"
+      />
     </div>
   );
 }
 
 export default function WorkPage() {
-  const [showForm, setShowForm] = useState(false);
+  const handleEmailClick = () => {
+    window.location.href = "mailto:miraj@yourdomain.com?subject=Collaboration Request";
+  };
 
   const works = [
     { 
@@ -67,36 +58,42 @@ export default function WorkPage() {
   ];
 
   return (
-    <div className="w-full min-h-screen bg-zinc-950 text-white relative py-16 px-6">
-      <ButterflyBackground />
-      {showForm && <ContactForm onClose={() => setShowForm(false)} />}
+    <div className="w-full min-h-screen bg-black text-white relative py-20 px-6">
+      <Wings />
       
-      <div className="max-w-6xl mx-auto z-10 relative">
-        <h2 className="text-4xl font-bold mb-16 text-center">My Development Workflow</h2>
+      {/* সেন্ট্রাল কন্টেইনার (এখানেই সব গ্রিড থাকবে) */}
+      <main className="max-w-4xl mx-auto z-10 relative">
+        <h2 className="text-2xl font-light text-center tracking-widest text-zinc-400 uppercase mb-16">Development Workflow</h2>
         
-        {/* গ্রিড লেআউট: মোবাইলে ১টি, ট্যাবলেটে বা ডেস্কটপে ২টি করে */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {works.map((work, index) => (
-            <div key={index} className="bg-zinc-900/60 backdrop-blur-md p-6 rounded-xl border border-zinc-800 flex flex-col h-auto hover:border-blue-500/50 transition-all">
-              <div className="w-full h-48 bg-black rounded-lg overflow-hidden mb-6 border border-zinc-700">
+            <div key={index} className="bg-zinc-900/40 p-5 border border-white/5 hover:border-blue-500/20 transition-all duration-300 flex flex-col">
+              <div className="w-full h-32 bg-black border border-white/5 mb-4 overflow-hidden">
                 <iframe className="w-full h-full" src={`https://www.youtube.com/embed/${work.videoId}`} />
               </div>
               
-              <h3 className="text-2xl font-bold mb-2">{work.title}</h3>
-              <p className="text-blue-400 text-sm font-semibold mb-4 italic">{work.result}</p>
-              <p className="text-gray-300 text-base leading-relaxed mb-6 flex-grow">{work.workflow}</p>
+              <h3 className="text-sm font-medium mb-1">{work.title}</h3>
+              <p className="text-blue-500/70 text-[10px] uppercase tracking-wider mb-3 italic">{work.result}</p>
+              <p className="text-zinc-500 text-xs leading-relaxed mb-4 flex-grow">{work.workflow}</p>
               
-              <div className="flex flex-wrap gap-2 mb-6 mt-auto">
-                {work.tech.map((t, i) => <span key={i} className="px-3 py-1 bg-zinc-800 text-xs rounded-full text-zinc-300 border border-zinc-700">{t}</span>)}
+              <div className="flex flex-wrap gap-1.5 mb-4 mt-auto">
+                {work.tech.map((t, i) => (
+                  <span key={i} className="px-2 py-0.5 bg-white/5 text-[9px] uppercase tracking-wider text-zinc-600 border border-white/5">
+                    {t}
+                  </span>
+                ))}
               </div>
 
-              <div className="flex gap-4">
-                <button onClick={() => setShowForm(true)} className="flex-1 bg-blue-600 py-3 rounded-lg font-semibold hover:bg-blue-700 transition">Start Collaboration</button>
-              </div>
+              <button 
+                onClick={handleEmailClick}
+                className="w-full border border-white/10 py-2 text-[10px] uppercase tracking-widest hover:bg-white/5 transition-all text-zinc-400"
+              >
+                Start Collaboration
+              </button>
             </div>
           ))}
         </div>
-      </div>
+      </main>
     </div>
   );
 }
