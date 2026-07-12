@@ -1,96 +1,97 @@
-"use client";
 import React from 'react';
-import { motion } from 'framer-motion';
 
-// গ্লোয়িং উইং এনিমেশন
-function Wings() {
+const workflowSteps = [
+  { 
+    step: "01", 
+    title: "Deep Discovery & Planning", 
+    desc: "Before writing a single line of code, I dive deep into the project requirements. I map out user needs and business objectives to create a solid architectural blueprint. This ensures that every feature I build solves a real problem and adds tangible value to the product." 
+  },
+  { 
+    step: "02", 
+    title: "Stack Architecture", 
+    desc: "A scalable application requires a rock-solid foundation. I select industry-standard technologies like JavaScript, React, and Supabase. I architect the database structure and security protocols to ensure the project remains robust and performant, even as user traffic grows." 
+  },
+  { 
+    step: "03", 
+    title: "AI-Powered Execution", 
+    desc: "I leverage Cursor AI to accelerate development, ensuring code quality and precision. I break the project into modular components, keeping the codebase clean, maintainable, and bug-free. My development style combines visual aesthetics with high-end technical logic." 
+  },
+  { 
+    step: "04", 
+    title: "GitHub Integrity", 
+    desc: "Code is an asset that needs protection. I use GitHub to track every development stage, maintain version control, and ensure team transparency. This rigorous commit history guarantees that your source code is always secure, versioned, and audit-ready." 
+  },
+  { 
+    step: "05", 
+    title: "Global Cloudflare Infrastructure", 
+    desc: "I deploy projects using Cloudflare’s powerful infrastructure. By utilizing a Global CDN, I ensure your application is delivered at lightning speed to users worldwide, while keeping it shielded behind enterprise-grade security protocols." 
+  },
+  { 
+    step: "06", 
+    title: "Performance Optimization", 
+    desc: "Deployment is just the start. I fine-tune every audiovisual element, optimize page load times, and ensure cross-device responsiveness. My goal is to provide a seamless, premium user experience that converts visitors into loyal clients." 
+  }
+];
+
+const services = [
+  { title: "Web App Development", desc: "High-performance, scalable web apps built with modern logic.", img: "/images/web-app.jpeg" },
+  { title: "Mobile App Development", desc: "User-centric mobile experiences with real-time data synchronization.", img: "/images/mobile-app.jpeg" },
+  { title: "Website Development", desc: "Responsive, SEO-optimized digital presence for all devices.", img: "/images/website-dev.jpeg" },
+  { title: "Corporate Identity Suite", desc: "Professional branding kits that define your corporate identity.", img: "/images/identity.jpeg" }
+];
+
+const Work = () => {
   return (
-    <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden">
-      <motion.div 
-        animate={{ opacity: [0.2, 0.5, 0.2], scale: [1, 1.05, 1] }}
-        transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute top-1/4 -left-32 w-80 h-96 bg-blue-600/15 blur-[120px] rounded-full"
-      />
-      <motion.div 
-        animate={{ opacity: [0.2, 0.5, 0.2], scale: [1, 1.05, 1] }}
-        transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute top-1/4 -right-32 w-80 h-96 bg-blue-600/15 blur-[120px] rounded-full"
-      />
+    <div className="bg-slate-950 min-h-screen text-white p-6 md:p-12 font-sans">
+      {/* Header */}
+      <header className="max-w-5xl mx-auto text-center mb-20">
+        <h1 className="text-5xl md:text-6xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-500 mb-6">
+          XGGOLE Development Workflow
+        </h1>
+        <p className="text-slate-400 text-lg md:text-xl">
+          From concept to production—leveraging modern tech and AI-powered tools to bring your vision to life.
+        </p>
+      </header>
+
+      {/* Workflow Steps */}
+      <section className="max-w-7xl mx-auto mb-20">
+        <h2 className="text-3xl font-semibold mb-10 text-center">The A to Z Process</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {workflowSteps.map((s, i) => (
+            <div key={i} className="p-8 rounded-3xl border border-white/10 bg-white/5 backdrop-blur-md hover:bg-white/10 transition-all duration-300 hover:shadow-2xl hover:shadow-blue-500/10">
+              <span className="text-blue-500 font-bold text-2xl mb-4 block">{s.step}</span>
+              <h3 className="text-2xl font-semibold mb-4 text-white">{s.title}</h3>
+              <p className="text-slate-400 text-base leading-relaxed">{s.desc}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Services Section */}
+      <section className="max-w-7xl mx-auto mb-20">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          {services.map((item, i) => (
+            <div key={i} className="group rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl p-6 transition hover:shadow-2xl hover:shadow-blue-500/10">
+              <img src={item.img} alt={item.title} className="w-full h-40 object-cover rounded-xl mb-4" />
+              <h3 className="text-lg font-semibold mb-2">{item.title}</h3>
+              <p className="text-slate-400 text-sm">{item.desc}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Why Choose XGGOLE */}
+      <section className="max-w-4xl mx-auto p-12 rounded-3xl bg-gradient-to-br from-blue-900/20 to-purple-900/20 border border-white/10 text-center">
+        <h2 className="text-3xl font-bold mb-8">Why Choose XGGOLE?</h2>
+        <ul className="text-slate-300 space-y-5 text-left inline-block text-lg">
+          <li>✅ <strong>Modern Tech Stack:</strong> Using cutting-edge tools that ensure longevity.</li>
+          <li>✅ <strong>AI-Assisted Precision:</strong> Clean, bug-free, and high-performance code.</li>
+          <li>✅ <strong>Global Professional Standards:</strong> GitHub, Supabase, and Cloudflare integration.</li>
+          <li>✅ <strong>User-Centric Design:</strong> Not just functional, but an immersive experience.</li>
+        </ul>
+      </section>
     </div>
   );
-}
+};
 
-export default function WorkPage() {
-  const works = [
-    { 
-      title: "Web App Development", 
-      videoId: "u4OUd3GKjAg", 
-      workflow: "My approach to web apps is focused on high performance. I use ChatGPT and Gemini to architect complex logic, combined with Cursor as my AI-native IDE. Data is managed via Supabase, ensuring a secure and scalable foundation, while the entire build is deployed on Cloudflare.",
-      tech: ["Full-Stack", "AI-Integrated", "High-Performance"],
-      result: "Optimized for speed, reliability, and security."
-    },
-    { 
-      title: "Mobile App Development", 
-      videoId: "u4OUd3GKjAg", 
-      workflow: "For mobile experiences, I follow a mobile-first development lifecycle. I leverage AI coding assistants for rapid feature scaffolding, while Supabase provides real-time data synchronization. GitHub acts as my core for version control, ensuring a stable and professional deployment.",
-      tech: ["Mobile-First", "Real-time Data", "Secure Auth"],
-      result: "Seamless mobile data handling and synchronization."
-    },
-    { 
-      title: "Website Development", 
-      videoId: "u4OUd3GKjAg", 
-      workflow: "I focus on crafting responsive and user-centric websites that deliver seamless browsing experiences. By leveraging modern frameworks and clean code practices, I ensure that every site is optimized for performance, SEO, and accessibility across all devices.",
-      tech: ["Responsive Design", "SEO Optimized", "Performance"],
-      result: "A fast, accessible, and visually stunning digital presence."
-    },
-    { 
-      title: "Corporate Identity Suite", 
-      videoId: "u4OUd3GKjAg", 
-      workflow: "I build comprehensive corporate identity suites that create a cohesive visual language. From logotypes to modular digital asset systems, every element is designed to maintain professional consistency across all platforms and touchpoints.",
-      tech: ["Visual Architecture", "Modular Design", "Professional Assets"],
-      result: "Scalable, consistent, and recognizable branding."
-    }
-  ];
-
-  const margins = ["ml-10", "ml-24", "ml-10", "ml-24"];
-
-  return (
-    <div className="w-full h-screen bg-black text-white px-4 py-2 overflow-hidden flex flex-col justify-center">
-      <Wings />
-      
-      <h2 className="text-xl font-light text-center tracking-widest text-zinc-400 uppercase mb-4 relative z-10">Development Workflow</h2>
-      
-      <div className="flex flex-col h-full gap-3 relative z-10 justify-center">
-        {works.map((work, index) => (
-          <motion.div 
-            key={index} 
-            initial={{ x: -30, opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
-            transition={{ duration: 0.6, delay: index * 0.15 }}
-            className={`flex flex-row items-center gap-4 bg-zinc-900/40 border border-white/5 hover:border-blue-500/30 transition-all ${margins[index % 4]} h-[19vh]`}
-          >
-            {/* ভিডিও সাইড */}
-            <div className="w-1/4 h-full bg-black overflow-hidden border-r border-white/5 flex-shrink-0">
-              <iframe className="w-full h-full" src={`https://www.youtube.com/embed/${work.videoId}`} />
-            </div>
-            
-            {/* টেক্সট সাইড - এখানে পুরো ডেসক্রিপশন আছে */}
-            <div className="w-3/4 p-3 flex flex-col justify-center overflow-hidden">
-              <h3 className="text-sm font-medium text-white mb-0.5">{work.title}</h3>
-              <p className="text-blue-400/80 text-[9px] uppercase tracking-wider italic mb-1">{work.result}</p>
-              <p className="text-zinc-400 text-[10px] leading-tight mb-2 pr-4">{work.workflow}</p>
-              
-              <div className="flex flex-wrap gap-1">
-                {work.tech.map((t, i) => (
-                  <span key={i} className="px-1.5 py-0 bg-white/5 text-[8px] uppercase tracking-wider text-zinc-600 border border-white/5">
-                    {t}
-                  </span>
-                ))}
-              </div>
-            </div>
-          </motion.div>
-        ))}
-      </div>
-    </div>
-  );
-}
+export default Work;
