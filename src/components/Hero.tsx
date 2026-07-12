@@ -104,7 +104,7 @@ export default function Hero({ onContactClick }: HeroProps) {
 </p>
           <div className="flex gap-6 justify-center">
             <Link to="/work" className="px-8 py-4 bg-white text-black font-semibold rounded-full transition-all duration-500 ease-[cubic-bezier(0.175,0.885,0.32,1.275)] hover:scale-110 hover:shadow-[0_0_30px_rgba(255,255,255,0.4)] active:scale-95">
-              View My Work
+              My Development Workflow
             </Link>
             <button onClick={onContactClick} className="px-8 py-4 border-2 border-white/20 text-white font-semibold rounded-full transition-all duration-500 ease-[cubic-bezier(0.175,0.885,0.32,1.275)] hover:scale-110 hover:border-cyan-400 hover:shadow-[0_0_30px_rgba(34,211,238,0.4)] active:scale-95">
               Get in Touch
