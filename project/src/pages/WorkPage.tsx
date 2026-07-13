@@ -1,19 +1,25 @@
 "use client";
 import { useState } from 'react';
-import { motion } from 'framer-motion';
 
-// ১. পুরো স্ক্রিন জুড়ে প্রজাপতি ব্যাকগ্রাউন্ড
+// ১. পুরো স্ক্রিন জুড়ে প্রজাপতি ব্যাকগ্রাউন্ড (CSS এনিমেশন দিয়ে করা)
 function ButterflyBackground() {
   return (
     <div className="fixed inset-0 z-0 pointer-events-none opacity-40">
+      <style jsx>{`
+        @keyframes butterflyAnim {
+          0%, 100% { transform: rotateY(0deg) scale(0.8); }
+          50% { transform: rotateY(60deg) scale(1); }
+        }
+        .butterfly-animate {
+          animation: butterflyAnim 4s infinite ease-in-out;
+        }
+      `}</style>
       <div className="absolute inset-0 bg-blue-900/10 blur-[150px]"></div>
-      <motion.div 
-        animate={{ rotateY: [0, 60, 0], scale: [0.8, 1, 0.8] }}
-        transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute top-1/4 left-1/4 text-blue-300 text-[200px]"
+      <div 
+        className="absolute top-1/4 left-1/4 text-blue-300 text-[200px] butterfly-animate"
       >
         🦋
-      </motion.div>
+      </div>
     </div>
   );
 }
@@ -22,7 +28,7 @@ function ButterflyBackground() {
 function ContactForm({ onClose }: { onClose: () => void }) {
   return (
     <div className="fixed inset-0 bg-black/80 z-[100] flex items-center justify-center p-4">
-      <div className="bg-zinc-900 p-8 rounded-xl border border-zinc-700 max-w-md w-full relative shadow-2xl">
+      <div className="bg-zinc-900 p-6 md:p-8 rounded-xl border border-zinc-700 max-w-md w-full relative shadow-2xl">
         <button onClick={onClose} className="absolute top-4 right-4 text-white hover:text-red-400">✕</button>
         <h3 className="text-xl font-bold mb-6 text-white">Start Your Project</h3>
         <input className="w-full p-3 mb-4 bg-zinc-800 rounded border border-zinc-700 text-white" placeholder="Name" />
@@ -69,23 +75,22 @@ export default function WorkPage() {
   ];
 
   return (
-    <div className="w-full min-h-screen bg-zinc-950 text-white relative py-16 px-8">
+    <div className="w-full min-h-screen bg-zinc-950 text-white relative py-10 px-4 md:py-16 md:px-8">
       <ButterflyBackground />
       {showForm && <ContactForm onClose={() => setShowForm(false)} />}
       
       <div className="max-w-6xl mx-auto z-10 relative">
-        <h2 className="text-4xl font-bold mb-16 text-center">My Development Workflow</h2>
+        <h2 className="text-3xl md:text-4xl font-bold mb-10 md:mb-16 text-center">My Development Workflow</h2>
         
-        {/* গ্রিড লেআউট: দুটি করে কার্ড পাশাপাশি */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
           {works.map((work, index) => (
             <div key={index} className="bg-zinc-900/60 backdrop-blur-md p-6 rounded-xl border border-zinc-800 flex flex-col hover:border-blue-500/50 transition-all">
               <div className="w-full h-48 bg-black rounded-lg overflow-hidden mb-6 border border-zinc-700">
                 <iframe className="w-full h-full" src={`https://www.youtube.com/embed/${work.videoId}`} />
               </div>
               
-              <h3 className="text-2xl font-bold mb-2">{work.title}</h3>
-              <p className="text-blue-400 text-sm font-semibold mb-4">{work.result}</p>
+              <h3 className="text-xl md:text-2xl font-bold mb-2">{work.title}</h3>
+              <p className="text-blue-400 text-xs md:text-sm font-semibold mb-4">{work.result}</p>
               <p className="text-gray-400 text-sm leading-relaxed mb-4 flex-grow">{work.workflow}</p>
               
               <div className="flex flex-wrap gap-2 mb-6">
