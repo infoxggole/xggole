@@ -1,106 +1,93 @@
-"use client";
-import { useState } from 'react';
+import React from 'react';
 
-// ১. পুরো স্ক্রিন জুড়ে প্রজাপতি ব্যাকগ্রাউন্ড (CSS এনিমেশন দিয়ে করা)
-function ButterflyBackground() {
+const whyChooseUs = [
+  { 
+    title: "Custom AI Solutions", 
+    desc: "At FGGOLE, I don't believe in off-the-shelf templates. I architect bespoke AI-driven solutions that act as a force multiplier for your operations. By integrating advanced machine learning models directly into your custom business logic, I transform abstract concepts into tangible, high-efficiency digital tools that automate workflows, streamline complex decision-making processes, and provide you with a distinct, insurmountable competitive advantage in your industry." 
+  },
+  { 
+    title: "Scalable Architecture", 
+    desc: "A scalable application is not just about handling traffic; it's about structural integrity. I engineer every application with a modular, microservices-ready architecture that ensures your platform remains resilient under heavy loads. By prioritizing clean, decoupled code, I ensure that your application can evolve rapidly as your business expands, allowing you to add new features or scale your infrastructure without ever sacrificing performance or stability." 
+  },
+  { 
+    title: "Enterprise-Grade Security", 
+    desc: "Security is never an afterthought at FGGOLE; it is the foundation of every line of code I write. From implementing rigorous data encryption and robust authentication protocols to securing your database integrity, I treat your data with the highest level of confidentiality. By utilizing advanced firewall protections and secure deployment environments, I ensure that your business, your data, and your users are protected against evolving cyber threats." 
+  },
+  { 
+    title: "Lightning-Fast Performance", 
+    desc: "In the digital age, speed is the ultimate currency. I obsessively optimize every asset, code block, and server-side response to guarantee that your platform provides a fluid, near-instantaneous experience. By optimizing core web vitals, leveraging global CDN caching, and fine-tuning database queries, I ensure your application maintains a high-performance score across all devices, directly boosting user retention and conversion rates." 
+  }
+];
+
+const roadmap = [
+  { 
+    step: "01", 
+    title: "Deep Discovery & Planning", 
+    desc: "I begin by deep-diving into your vision to identify the core problems that need solving. This phase involves extensive requirement analysis, user persona mapping, and the creation of a comprehensive architectural blueprint. By aligning your business objectives with technical feasibility early on, I ensure that the final product is not just a collection of features, but a strategic asset built to deliver specific, measurable outcomes for your organization." 
+  },
+  { 
+    step: "02", 
+    title: "Stack Architecture", 
+    desc: "A robust application requires a foundation that is both flexible and secure. I carefully select the industry’s most reliable technology stack—such as Next.js, React, and Supabase—to structure your database and application logic. This phase is dedicated to establishing data integrity, defining API schemas, and ensuring that the underlying architecture is capable of supporting your long-term growth and technical requirements with maximum efficiency." 
+  },
+  { 
+    step: "03", 
+    title: "AI-Powered Execution", 
+    desc: "By leveraging cutting-edge AI-native development environments like Cursor, I accelerate the build process without ever compromising on code quality. I decompose complex features into modular, clean, and highly maintainable components. This AI-assisted workflow allows for rapid iteration and prototyping, ensuring that the development cycle is fast, the code is future-proof, and the final delivery is precise, bug-free, and perfectly aligned with your specifications." 
+  },
+  { 
+    step: "04", 
+    title: "GitHub Integrity", 
+    desc: "Your code is your most valuable intellectual property, and I treat it with absolute care. I maintain a strict, professional version control workflow on GitHub, where every line of code is tracked, reviewed, and versioned. By managing feature branches, conducting rigorous code reviews, and maintaining a clear commit history, I ensure total transparency and stability throughout the entire development lifecycle, making your project easy to manage, audit, and upgrade." 
+  },
+  { 
+    step: "05", 
+    title: "Global Cloudflare Infrastructure", 
+    desc: "Deployment is handled with enterprise-grade standards using Cloudflare’s global edge network. I ensure that your application is not just hosted, but intelligently distributed to data centers worldwide. This approach dramatically reduces latency, protects your infrastructure against DDoS attacks, and ensures that your platform is accessible and reliable for users, no matter where they are located on the globe." 
+  },
+  { 
+    step: "06", 
+    title: "Performance Optimization", 
+    desc: "The development cycle doesn't conclude at deployment; that is where the refinement begins. I obsessively fine-tune audiovisual assets, optimize front-end rendering, and perform rigorous cross-device testing to guarantee a high-performance experience. By monitoring core web vitals and constantly iterating on load times and accessibility, I ensure that your platform remains ahead of the curve, providing a smooth, flawless interface for every visitor." 
+  }
+];
+
+export default function Work() {
   return (
-    <div className="fixed inset-0 z-0 pointer-events-none opacity-40">
-      <style jsx>{`
-        @keyframes butterflyAnim {
-          0%, 100% { transform: rotateY(0deg) scale(0.8); }
-          50% { transform: rotateY(60deg) scale(1); }
-        }
-        .butterfly-animate {
-          animation: butterflyAnim 4s infinite ease-in-out;
-        }
-      `}</style>
-      <div className="absolute inset-0 bg-blue-900/10 blur-[150px]"></div>
-      <div 
-        className="absolute top-1/4 left-1/4 text-blue-300 text-[200px] butterfly-animate"
-      >
-        🦋
-      </div>
-    </div>
-  );
-}
-
-// ২. কন্টাক্ট ফর্ম
-function ContactForm({ onClose }: { onClose: () => void }) {
-  return (
-    <div className="fixed inset-0 bg-black/80 z-[100] flex items-center justify-center p-4">
-      <div className="bg-zinc-900 p-6 md:p-8 rounded-xl border border-zinc-700 max-w-md w-full relative shadow-2xl">
-        <button onClick={onClose} className="absolute top-4 right-4 text-white hover:text-red-400">✕</button>
-        <h3 className="text-xl font-bold mb-6 text-white">Start Your Project</h3>
-        <input className="w-full p-3 mb-4 bg-zinc-800 rounded border border-zinc-700 text-white" placeholder="Name" />
-        <input className="w-full p-3 mb-4 bg-zinc-800 rounded border border-zinc-700 text-white" placeholder="Email" />
-        <textarea className="w-full p-3 mb-4 bg-zinc-800 rounded border border-zinc-700 text-white" placeholder="Project Details" rows={4} />
-        <button className="w-full bg-blue-600 p-3 rounded text-white font-semibold hover:bg-blue-700">Send Message</button>
-      </div>
-    </div>
-  );
-}
-
-export default function WorkPage() {
-  const [showForm, setShowForm] = useState(false);
-
-  const works = [
-    { 
-      title: "Web App Development", 
-      videoId: "u4OUd3GKjAg", 
-      workflow: "My approach to web apps is focused on high performance. I use ChatGPT and Gemini to architect complex logic, combined with Cursor as my AI-native IDE. Data is managed via Supabase, ensuring a secure and scalable foundation, while the entire build is deployed on Cloudflare.",
-      tech: ["Full-Stack", "AI-Integrated", "High-Performance"],
-      result: "Optimized for speed, reliability, and security."
-    },
-    { 
-      title: "Mobile App Development", 
-      videoId: "u4OUd3GKjAg", 
-      workflow: "For mobile experiences, I follow a mobile-first development lifecycle. I leverage AI coding assistants for rapid feature scaffolding, while Supabase provides real-time data synchronization. GitHub acts as my core for version control, ensuring a stable and professional deployment.",
-      tech: ["Mobile-First", "Real-time Data", "Secure Auth"],
-      result: "Seamless mobile data handling and synchronization."
-    },
-    { 
-      title: "Website Development", 
-      videoId: "u4OUd3GKjAg", 
-      workflow: "I focus on crafting responsive and user-centric websites that deliver seamless browsing experiences. By leveraging modern frameworks and clean code practices, I ensure that every site is optimized for performance, SEO, and accessibility across all devices.",
-      tech: ["Responsive Design", "SEO Optimized", "Performance"],
-      result: "A fast, accessible, and visually stunning digital presence."
-    },
-    { 
-      title: "Corporate Identity Suite", 
-      videoId: "u4OUd3GKjAg", 
-      workflow: "I build comprehensive corporate identity suites that create a cohesive visual language. From logotypes to modular digital asset systems, every element is designed to maintain professional consistency across all platforms and touchpoints.",
-      tech: ["Visual Architecture", "Modular Design", "Professional Assets"],
-      result: "Scalable, consistent, and recognizable branding."
-    }
-  ];
-
-  return (
-    <div className="w-full min-h-screen bg-zinc-950 text-white relative py-10 px-4 md:py-16 md:px-8">
-      <ButterflyBackground />
-      {showForm && <ContactForm onClose={() => setShowForm(false)} />}
+    <div className="bg-[#030303] min-h-screen text-white font-sans overflow-x-hidden">
       
-      <div className="max-w-6xl mx-auto z-10 relative">
-        <h2 className="text-3xl md:text-4xl font-bold mb-10 md:mb-16 text-center">My Development Workflow</h2>
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
-          {works.map((work, index) => (
-            <div key={index} className="bg-zinc-900/60 backdrop-blur-md p-6 rounded-xl border border-zinc-800 flex flex-col hover:border-blue-500/50 transition-all">
-              <div className="w-full h-48 bg-black rounded-lg overflow-hidden mb-6 border border-zinc-700">
-                <iframe className="w-full h-full" src={`https://www.youtube.com/embed/${work.videoId}`} />
-              </div>
-              
-              <h3 className="text-xl md:text-2xl font-bold mb-2">{work.title}</h3>
-              <p className="text-blue-400 text-xs md:text-sm font-semibold mb-4">{work.result}</p>
-              <p className="text-gray-400 text-sm leading-relaxed mb-4 flex-grow">{work.workflow}</p>
-              
-              <div className="flex flex-wrap gap-2 mb-6">
-                {work.tech.map((t, i) => <span key={i} className="px-2 py-1 bg-zinc-800 text-[10px] rounded text-zinc-300">{t}</span>)}
-              </div>
+      {/* Header Section */}
+      <div className="pt-20 pb-16 px-6 text-center max-w-4xl mx-auto">
+        <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-white mb-6">
+          FGGOLE Development Workflow
+        </h1>
+        <p className="text-gray-400 text-lg md:text-xl leading-relaxed">
+          From concept to production—leveraging modern tech and AI-powered tools to bring your vision to life.
+        </p>
+      </div>
 
-              <div className="flex gap-4 mt-auto">
-                <button onClick={() => setShowForm(true)} className="flex-1 bg-blue-600 py-2 rounded text-sm font-medium hover:bg-blue-700">Start Collaboration</button>
-                <button className="flex-1 border border-zinc-600 py-2 rounded text-sm font-medium hover:bg-zinc-800">View Methodology</button>
-              </div>
+      {/* Why Choose Section */}
+      <div className="max-w-7xl mx-auto px-6 mb-24">
+        <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">Why Choose FGGOLE</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {whyChooseUs.map((item, i) => (
+            <div key={i} className="p-8 rounded-3xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl">
+              <h3 className="text-xl font-semibold mb-4 text-blue-400">{item.title}</h3>
+              <p className="text-gray-400 leading-relaxed text-base">{item.desc}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Roadmap Section */}
+      <div className="max-w-7xl mx-auto px-6 pb-24">
+        <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">Development Roadmap</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {roadmap.map((s, i) => (
+            <div key={i} className="p-8 rounded-3xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl hover:border-blue-500/30 transition-all duration-300">
+              <span className="text-4xl font-bold text-white/20 mb-6 block">{s.step}</span>
+              <h3 className="text-xl font-semibold text-white mb-4">{s.title}</h3>
+              <p className="text-gray-400 leading-relaxed text-sm">{s.desc}</p>
             </div>
           ))}
         </div>
