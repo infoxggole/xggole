@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Star, Quote, MessageSquare } from 'lucide-react';
 import { supabase } from '../lib/supabase';
 import ReviewModal from './ReviewModal';
-import ReviewsListModal from './ReviewsListModal'; // নতুন ফাইলটি ইমপোর্ট করুন
+import ReviewsListModal from './ReviewsListModal'; // নতুন ফাইলটি ইমপোর্ট করলাম
 import md5 from 'md5';
 
 interface Review {
@@ -18,7 +18,7 @@ export default function Reviews() {
   const [reviews, setReviews] = useState<Review[]>([]);
   const [loading, setLoading] = useState(true);
   const [isWriteModalOpen, setIsWriteModalOpen] = useState(false);
-  const [isListModalOpen, setIsListModalOpen] = useState(false);
+  const [isListModalOpen, setIsListModalOpen] = useState(false); // নতুন স্টেট
 
   useEffect(() => {
     fetchReviews();
@@ -80,7 +80,7 @@ export default function Reviews() {
                 <p className="text-gray-500 text-sm">No reviews yet. Be the first to share your experience!</p>
               </div>
             ) : (
-              // শুধুমাত্র প্রথম ৪টি রিভিউ দেখানোর জন্য slice(0, 4) ব্যবহার করা হয়েছে
+              // শুধুমাত্র প্রথম ৪টি রিভিউ এখানে দেখাচ্ছি
               reviews.slice(0, 4).map((review) => (
                 <div key={review.id} className="group p-5 rounded-xl bg-zinc-900/40 border border-zinc-800 hover:border-blue-500/50 transition-all duration-300 backdrop-blur-sm flex flex-col justify-between">
                   <div>
@@ -103,8 +103,8 @@ export default function Reviews() {
           </div>
         )}
 
-        {/* বাটন সেকশন */}
         <div className="flex justify-center mt-12 gap-4">
+          {/* View All বাটন */}
           {reviews.length > 4 && (
             <button
               onClick={() => setIsListModalOpen(true)}
