@@ -3,7 +3,7 @@ import React from 'react';
 const whyChooseUs = [
   { 
     title: "Custom AI Solutions", 
-    desc: "At FGGOLE, I don't believe in off-the-shelf templates. I architect bespoke AI-driven solutions that act as a force multiplier for your operations. By integrating advanced machine learning models directly into your custom business logic, I transform abstract concepts into tangible, high-efficiency digital tools that automate workflows, streamline complex decision-making processes, and provide you with a distinct, insurmountable competitive advantage in your industry." 
+    desc: "At XGGOLE, I don't believe in off-the-shelf templates. I architect bespoke AI-driven solutions that act as a force multiplier for your operations. By integrating advanced machine learning models directly into your custom business logic, I transform abstract concepts into tangible, high-efficiency digital tools that automate workflows, streamline complex decision-making processes, and provide you with a distinct, insurmountable competitive advantage in your industry." 
   },
   { 
     title: "Scalable Architecture", 
@@ -59,7 +59,7 @@ export default function Work() {
       {/* Header Section */}
       <div className="pt-20 pb-16 px-6 text-center max-w-4xl mx-auto">
         <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-white mb-6">
-          FGGOLE Development Workflow
+          XGGOLE Development Workflow
         </h1>
         <p className="text-gray-400 text-lg md:text-xl leading-relaxed">
           From concept to production—leveraging modern tech and AI-powered tools to bring your vision to life.
@@ -68,7 +68,7 @@ export default function Work() {
 
       {/* Why Choose Section */}
       <div className="max-w-7xl mx-auto px-6 mb-24">
-        <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">Why Choose FGGOLE</h2>
+        <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">Why Choose XGGOLE</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {whyChooseUs.map((item, i) => (
             <div key={i} className="p-8 rounded-3xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl">
