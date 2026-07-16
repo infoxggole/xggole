@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Star, Quote, MessageSquare } from 'lucide-react';
 import { supabase } from '../lib/supabase';
 import ReviewModal from './ReviewModal';
+import ReviewsListModal from './ReviewsListModal'; // নতুন ফাইলটি ইমপোর্ট করুন
 import md5 from 'md5';
 
 interface Review {
@@ -16,7 +17,8 @@ interface Review {
 export default function Reviews() {
   const [reviews, setReviews] = useState<Review[]>([]);
   const [loading, setLoading] = useState(true);
-  const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
+  const [isWriteModalOpen, setIsWriteModalOpen] = useState(false);
+  const [isListModalOpen, setIsListModalOpen] = useState(false);
 
   useEffect(() => {
     fetchReviews();
@@ -54,26 +56,19 @@ export default function Reviews() {
     ));
   };
 
-  const handleModalClose = () => {
-    setIsReviewModalOpen(false);
-    fetchReviews(); 
-  };
-
   return (
     <section id="reviews" className="py-20 bg-zinc-950">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Header Section */}
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
             Client <span className="bg-gradient-to-r from-blue-400 via-white to-blue-200 bg-clip-text text-transparent">Reviews</span>
           </h2>
           <p className="text-gray-400 max-w-xl mx-auto text-sm md:text-base">
-            Here's what our valued clients have to say about their experience with FGGOLE.
+            Here's what our valued clients have to say about their experience with XGGOLE.
           </p>
         </div>
 
-        {/* Reviews Grid */}
         {loading ? (
           <div className="flex justify-center py-10">
             <div className="w-10 h-10 border-4 border-blue-500 border-t-transparent rounded-full animate-spin" />
@@ -85,29 +80,17 @@ export default function Reviews() {
                 <p className="text-gray-500 text-sm">No reviews yet. Be the first to share your experience!</p>
               </div>
             ) : (
-              reviews.map((review) => (
-                <div
-                  key={review.id}
-                  className="group p-5 rounded-xl bg-zinc-900/40 border border-zinc-800 hover:border-blue-500/50 transition-all duration-300 backdrop-blur-sm flex flex-col justify-between"
-                >
+              // শুধুমাত্র প্রথম ৪টি রিভিউ দেখানোর জন্য slice(0, 4) ব্যবহার করা হয়েছে
+              reviews.slice(0, 4).map((review) => (
+                <div key={review.id} className="group p-5 rounded-xl bg-zinc-900/40 border border-zinc-800 hover:border-blue-500/50 transition-all duration-300 backdrop-blur-sm flex flex-col justify-between">
                   <div>
                     <Quote className="w-6 h-6 text-blue-500/20 mb-2" />
-                    <p className="text-gray-300 mb-4 text-sm leading-relaxed line-clamp-4">
-                      {review.message}
-                    </p>
+                    <p className="text-gray-300 mb-4 text-sm leading-relaxed line-clamp-4">{review.message}</p>
                   </div>
-                  
                   <div>
-                    <div className="flex items-center gap-1 mb-3">
-                      {renderStars(review.rating)}
-                    </div>
+                    <div className="flex items-center gap-1 mb-3">{renderStars(review.rating)}</div>
                     <div className="flex items-center gap-3">
-                      <img 
-                        src={getGravatarUrl(review.email)} 
-                        alt={review.name}
-                        className="w-8 h-8 rounded-full shadow-lg border border-zinc-700"
-                        loading="lazy"
-                      />
+                      <img src={getGravatarUrl(review.email)} alt={review.name} className="w-8 h-8 rounded-full shadow-lg border border-zinc-700" loading="lazy" />
                       <div>
                         <p className="text-white font-semibold text-xs">{review.name}</p>
                         <p className="text-blue-400 text-[10px] font-medium">Verified Client</p>
@@ -120,10 +103,18 @@ export default function Reviews() {
           </div>
         )}
 
-        {/* Action Button */}
-        <div className="flex justify-center mt-12">
+        {/* বাটন সেকশন */}
+        <div className="flex justify-center mt-12 gap-4">
+          {reviews.length > 4 && (
+            <button
+              onClick={() => setIsListModalOpen(true)}
+              className="px-6 py-3 bg-zinc-800 text-white font-semibold rounded-lg hover:bg-zinc-700 transition-colors shadow-lg text-sm"
+            >
+              View All Reviews
+            </button>
+          )}
           <button
-            onClick={() => setIsReviewModalOpen(true)}
+            onClick={() => setIsWriteModalOpen(true)}
             className="px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors shadow-lg flex items-center gap-2 text-sm"
           >
             <MessageSquare size={18} />
@@ -131,11 +122,9 @@ export default function Reviews() {
           </button>
         </div>
 
-        {/* Modal */}
-        <ReviewModal
-          isOpen={isReviewModalOpen}
-          onClose={handleModalClose}
-        />
+        {/* মোডালস */}
+        <ReviewModal isOpen={isWriteModalOpen} onClose={() => { setIsWriteModalOpen(false); fetchReviews(); }} />
+        <ReviewsListModal isOpen={isListModalOpen} onClose={() => setIsListModalOpen(false)} reviews={reviews} />
       </div>
     </section>
   );
