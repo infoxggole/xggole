@@ -1,40 +1,106 @@
-import { X, Quote, Star } from 'lucide-react';
+import { useState } from 'react';
+import { supabase } from '../lib/supabase';
+import { X, Loader2, MessageSquare, Star } from 'lucide-react';
 
-interface Review {
-  id: string;
-  name: string;
-  email: string;
-  rating: number;
-  message: string;
-}
+export default function ReviewModal({ isOpen, onClose }) {
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState(''); // নতুন ইমেইল স্টেট
+  const [message, setMessage] = useState('');
+  const [rating, setRating] = useState(5);
+  const [loading, setLoading] = useState(false);
 
-interface ListModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-  reviews: Review[];
-}
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
 
-export default function ReviewsListModal({ isOpen, onClose, reviews }: ListModalProps) {
+    try {
+      // Supabase-এ ইমেইলসহ ডেটা ইনসার্ট করা হচ্ছে
+      const { error } = await supabase.from('reviews').insert([
+        { 
+          name, 
+          email, // ইমেইল ডাটাবেসে পাঠানো হচ্ছে
+          rating, 
+          message,
+        }
+      ]);
+
+      if (error) throw error;
+
+      alert("Thank you so much for your review!");
+      setName('');
+      setEmail('');
+      setMessage('');
+      setRating(5);
+      onClose(); 
+    } catch (err) {
+      console.error("Database Error:", err);
+      alert("There was an error submitting your review. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4 backdrop-blur-sm" onClick={onClose}>
-      <div className="relative bg-zinc-900 p-6 rounded-2xl w-full max-w-2xl max-h-[80vh] overflow-y-auto border border-zinc-800 shadow-2xl" onClick={e => e.stopPropagation()}>
-        <button onClick={onClose} className="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors"><X size={24} /></button>
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4" onClick={onClose}>
+      <div className="relative bg-zinc-900 p-8 rounded-2xl w-full max-w-md border border-zinc-800 shadow-2xl" onClick={e => e.stopPropagation()}>
         
-        <h2 className="text-white text-2xl font-bold mb-6">All Reviews</h2>
+        <button onClick={onClose} className="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors">
+          <X size={24} />
+        </button>
+
+        <h2 className="text-white text-2xl font-bold mb-6">Share your feedback</h2>
         
-        <div className="space-y-4">
-          {reviews.map((review) => (
-            <div key={review.id} className="p-4 rounded-xl bg-zinc-800/50 border border-zinc-700">
-              <div className="flex justify-between items-start mb-2">
-                <span className="text-white font-semibold text-sm">{review.name}</span>
-                <div className="flex">{Array.from({ length: 5 }, (_, i) => <Star key={i} className={`w-3 h-3 ${i < review.rating ? 'text-blue-400 fill-blue-400' : 'text-gray-600'}`} />)}</div>
-              </div>
-              <p className="text-gray-400 text-sm">{review.message}</p>
-            </div>
-          ))}
-        </div>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <input 
+            className="w-full p-3 bg-zinc-800 text-white rounded-lg focus:ring-2 focus:ring-amber-500 outline-none" 
+            placeholder="Your Name" 
+            required 
+            onChange={e => setName(e.target.value)} 
+            value={name} 
+          />
+          
+          {/* নতুন ইমেইল ইনপুট ফিল্ড */}
+          <input 
+            type="email"
+            className="w-full p-3 bg-zinc-800 text-white rounded-lg focus:ring-2 focus:ring-amber-500 outline-none" 
+            placeholder="Your Email (for profile photo)" 
+            required 
+            onChange={e => setEmail(e.target.value)} 
+            value={email} 
+          />
+          
+          <div className="flex gap-2 items-center">
+            <span className="text-gray-400 mr-2">Your Rating:</span>
+            {[1, 2, 3, 4, 5].map((star) => (
+              <Star
+                key={star}
+                className={`w-8 h-8 cursor-pointer transition-colors ${
+                  star <= rating ? 'text-amber-400 fill-amber-400' : 'text-gray-600'
+                }`}
+                onClick={() => setRating(star)}
+              />
+            ))}
+          </div>
+
+          <textarea 
+            className="w-full p-3 bg-zinc-800 text-white rounded-lg h-32 focus:ring-2 focus:ring-amber-500 outline-none resize-none" 
+            placeholder="Write your feedback..." 
+            required 
+            onChange={e => setMessage(e.target.value)} 
+            value={message} 
+          />
+          
+          <button 
+            type="submit" 
+            disabled={loading} 
+            className="w-full p-4 bg-amber-500 rounded-lg text-white font-bold flex justify-center items-center gap-2 hover:bg-amber-600 transition-colors disabled:opacity-50"
+          >
+            {loading ? <Loader2 className="animate-spin" /> : <MessageSquare size={20} />}
+            {loading ? 'Submitting...' : 'Submit Review'}
+          </button>
+        </form>
       </div>
     </div>
   );
