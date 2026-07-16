@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import { Star, Quote, MessageSquare } from 'lucide-react';
 import { supabase } from '../lib/supabase';
 import ReviewModal from './ReviewModal';
-import ReviewsListModal from './ReviewsListModal'; // নতুন ফাইলটি ইমপোর্ট করলাম
 import md5 from 'md5';
 
 interface Review {
@@ -17,8 +16,8 @@ interface Review {
 export default function Reviews() {
   const [reviews, setReviews] = useState<Review[]>([]);
   const [loading, setLoading] = useState(true);
-  const [isWriteModalOpen, setIsWriteModalOpen] = useState(false);
-  const [isListModalOpen, setIsListModalOpen] = useState(false); // নতুন স্টেট
+  const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
+  const [showAll, setShowAll] = useState(false); // সিম্পল স্টেট
 
   useEffect(() => {
     fetchReviews();
@@ -56,6 +55,14 @@ export default function Reviews() {
     ));
   };
 
+  const handleModalClose = () => {
+    setIsReviewModalOpen(false);
+    fetchReviews(); 
+  };
+
+  // দেখানোর লজিক: showAll true হলে সব, নাহলে শুধু প্রথম ৪টি
+  const displayedReviews = showAll ? reviews : reviews.slice(0, 4);
+
   return (
     <section id="reviews" className="py-20 bg-zinc-950">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -80,8 +87,7 @@ export default function Reviews() {
                 <p className="text-gray-500 text-sm">No reviews yet. Be the first to share your experience!</p>
               </div>
             ) : (
-              // শুধুমাত্র প্রথম ৪টি রিভিউ এখানে দেখাচ্ছি
-              reviews.slice(0, 4).map((review) => (
+              displayedReviews.map((review) => (
                 <div key={review.id} className="group p-5 rounded-xl bg-zinc-900/40 border border-zinc-800 hover:border-blue-500/50 transition-all duration-300 backdrop-blur-sm flex flex-col justify-between">
                   <div>
                     <Quote className="w-6 h-6 text-blue-500/20 mb-2" />
@@ -104,17 +110,18 @@ export default function Reviews() {
         )}
 
         <div className="flex justify-center mt-12 gap-4">
-          {/* View All বাটন */}
+          {/* View All বাটন (সিম্পল টগল) */}
           {reviews.length > 4 && (
             <button
-              onClick={() => setIsListModalOpen(true)}
+              onClick={() => setShowAll(!showAll)}
               className="px-6 py-3 bg-zinc-800 text-white font-semibold rounded-lg hover:bg-zinc-700 transition-colors shadow-lg text-sm"
             >
-              View All Reviews
+              {showAll ? 'Show Less' : 'View All Reviews'}
             </button>
           )}
+
           <button
-            onClick={() => setIsWriteModalOpen(true)}
+            onClick={() => setIsReviewModalOpen(true)}
             className="px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors shadow-lg flex items-center gap-2 text-sm"
           >
             <MessageSquare size={18} />
@@ -122,9 +129,10 @@ export default function Reviews() {
           </button>
         </div>
 
-        {/* মোডালস */}
-        <ReviewModal isOpen={isWriteModalOpen} onClose={() => { setIsWriteModalOpen(false); fetchReviews(); }} />
-        <ReviewsListModal isOpen={isListModalOpen} onClose={() => setIsListModalOpen(false)} reviews={reviews} />
+        <ReviewModal
+          isOpen={isReviewModalOpen}
+          onClose={handleModalClose}
+        />
       </div>
     </section>
   );
