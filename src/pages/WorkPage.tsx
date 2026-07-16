@@ -3,7 +3,7 @@ import React from 'react';
 const whyChooseUs = [
   { 
     title: "Custom AI Solutions", 
-    desc: "At XGGOLE, I don't believe in off-the-shelf templates. I architect bespoke AI-driven solutions that act as a force multiplier for your operations. By integrating advanced machine learning models directly into your custom business logic, I transform abstract concepts into tangible, high-efficiency digital tools that automate workflows, streamline complex decision-making processes, and provide you with a distinct, insurmountable competitive advantage in your industry." 
+    desc: "At XGGOLE, I don't believe in off-the-shelf templates. I architect bespoke AI-driven solutions that act as a force multiplier for your operations. By integrating advanced machine learning models directly into your custom business logic, I transform abstract concepts into tangible, high-efficiency digital tools that automate workflows, streamline complex decision-making processes, and provide you with a distinct, significant competitive advantage in your industry." 
   },
   { 
     title: "Scalable Architecture", 
