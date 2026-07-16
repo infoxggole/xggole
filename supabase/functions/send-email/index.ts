@@ -12,7 +12,7 @@ Deno.serve(async (req) => {
     const { name, email, message } = await req.json()
     const RESEND_API_KEY = Deno.env.get('RESEND_API_KEY')
 
-    // ১. আপনার কাছে মেইল আসার রিকোয়েস্ট (XGGOLE)
+    // ১. আপনার কাছে মেইল আসার রিকোয়েস্ট (XGGOLE)
     const adminMail = fetch('https://api.resend.com/emails', {
       method: 'POST',
       headers: {
@@ -49,11 +49,19 @@ Deno.serve(async (req) => {
           </div>
           <div style="background-color: #f8fafc; padding: 25px; text-align: center; border-top: 1px solid #eee;">
             <p style="margin-bottom: 15px; color: #666; font-size: 14px;">Follow us for more updates:</p>
-            <div style="display: flex; justify-content: center; gap: 10px; flex-wrap: wrap;">
-              <a href="https://www.youtube.com/@MIRAJ1" style="background-color: #ff6666; color: #ffffff; padding: 8px 15px; text-decoration: none; border-radius: 5px; font-size: 12px; font-weight: bold;">YouTube</a>
-              <a href="https://www.instagram.com/mirajul_hossain.11/" style="background-color: #ff85a2; color: #ffffff; padding: 8px 15px; text-decoration: none; border-radius: 5px; font-size: 12px; font-weight: bold;">Instagram</a>
-              <a href="https://www.facebook.com/mirajul.hossain.75/" style="background-color: #6a89cc; color: #ffffff; padding: 8px 15px; text-decoration: none; border-radius: 5px; font-size: 12px; font-weight: bold;">Facebook</a>
-              <a href="YOUR_LINKEDIN_LINK" style="background-color: #4a90e2; color: #ffffff; padding: 8px 15px; text-decoration: none; border-radius: 5px; font-size: 12px; font-weight: bold;">LinkedIn</a>
+            <div style="display: block; text-align: center;">
+              <a href="https://www.youtube.com/@MIRAJ1" target="_blank" style="text-decoration: none; display: inline-block; margin: 0 8px; vertical-align: middle;">
+                <img src="https://img.icons8.com/color/48/youtube-play.png" alt="YouTube" width="36" height="36" style="display: block; border: 0;" />
+              </a>
+              <a href="https://www.instagram.com/mirajul_hossain.11/" target="_blank" style="text-decoration: none; display: inline-block; margin: 0 8px; vertical-align: middle;">
+                <img src="https://img.icons8.com/color/48/instagram-new--v1.png" alt="Instagram" width="36" height="36" style="display: block; border: 0;" />
+              </a>
+              <a href="https://www.facebook.com/mirajul_hossain.75/" target="_blank" style="text-decoration: none; display: inline-block; margin: 0 8px; vertical-align: middle;">
+                <img src="https://img.icons8.com/color/48/facebook-new.png" alt="Facebook" width="36" height="36" style="display: block; border: 0;" />
+              </a>
+              <a href="YOUR_LINKEDIN_LINK" target="_blank" style="text-decoration: none; display: inline-block; margin: 0 8px; vertical-align: middle;">
+                <img src="https://img.icons8.com/color/48/linkedin.png" alt="LinkedIn" width="36" height="36" style="display: block; border: 0;" />
+              </a>
             </div>
             <p style="margin-top: 25px; font-size: 11px; color: #999;">© 2026 XGGOLE | All Rights Reserved</p>
           </div>
